@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ورود به حساب کاربری | همایش یار</title>
+
+    <!-- CSS --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        </head>
+
+<body>
+
+       <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ================= MAIN ================= -->
+    <main class="login-page">
+
+        <div class="login-card">
+
+            <!-- Icon -->
+            <div class="login-icon">
+                <i class="fas fa-user-lock"></i>
+            </div>
+
+            <h2>ورود به سامانه</h2>
+
+            <p class="login-subtitle">
+                به سامانه مدیریت همایش همایش یار خوش آمدید
+            </p>
+
+            <!-- Login Form -->
+            <form id="loginForm" novalidate>
+
+                <div class="form-group">
+                    <label for="username">ایمیل یا نام کاربری</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="ایمیل یا نام کاربری خود را وارد کنید">
+                    </div>
+                    <div class="form-error" id="usernameError" style="display:none;color:#ef4444;font-size:13px;margin-top:4px;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        لطفاً ایمیل خود را وارد کنید
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">رمز عبور</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+                    </div>
+                    <div class="form-error" id="passwordError" style="display:none;color:#ef4444;font-size:13px;margin-top:4px;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        لطفاً رمز عبور خود را وارد کنید
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <i class="fas fa-right-to-bracket"></i>
+                    ورود به سامانه
+                </button>
+
+            </form>
+
+            <!-- Register -->
+            <p class="register-text">
+                حساب کاربری ندارید؟
+                <a href="register.html">ثبت‌نام کنید</a>
+            </p>
+
+            <!-- Demo Accounts -->
+            <div class="demo-box">
+                <strong>
+                    <i class="fas fa-circle-info"></i>
+                    حساب‌های آزمایشی
+                </strong>
+                <p>حساب‌های آزمایشی در دیتابیس قابل ایجاد هستند و ورود از طریق سرور PHP انجام می‌شود.</p>
+            </div>
+
+        </div>
+
+    </main>
+<div id="site-footer"></div>
+
+   
+
+    <!-- ================= JS ================= -->
+<!-- اول: توابع کمکی و سیستم Toast -->
+<script src="js/toast.js"></script>
+
+<!-- دوم: توابع اصلی اپلیکیشن (شامل saveUser) -->
+<script src="js/app.js"></script>
+
+<!-- سوم: نوار ناوبری -->
+<script src="js/layout.js"></script>
+
+<!-- چهارم: تم -->
+<!-- پنجم: کدهای مخصوص همین صفحه -->
+<script>
+    // =========================================================
+    // آماده‌سازی صفحه ورود
+    // =========================================================
+
+    // اگر قبلاً وارد شده، مستقیم به پنل همان نقش برو.
+    (async function checkAlreadyLoggedIn() {
+        var user = getUser();
+        if (!user) return;
+        var freshUser = await refreshCurrentUser();
+        if (freshUser) window.location.replace(dashboardForRole(freshUser.role));
+    })();
+
+    function showError(elementId, message) {
+        var errorEl = document.getElementById(elementId);
+        if (errorEl) {
+            errorEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+            errorEl.style.display = 'block';
+        }
+    }
+
+    function hideError(elementId) {
+        var errorEl = document.getElementById(elementId);
+        if (errorEl) errorEl.style.display = 'none';
+    }
+
+    document.getElementById('username').addEventListener('input', function () {
+        if (this.value.trim()) hideError('usernameError');
+    });
+    document.getElementById('password').addEventListener('input', function () {
+        if (this.value.trim()) hideError('passwordError');
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        var email = document.getElementById('username').value.trim();
+        var pass = document.getElementById('password').value;
+        var valid = true;
+
+        if (!email) {
+            showError('usernameError', 'لطفاً ایمیل خود را وارد کنید');
+            valid = false;
+        } else hideError('usernameError');
+
+        if (!pass) {
+            showError('passwordError', 'لطفاً رمز عبور خود را وارد کنید');
+            valid = false;
+        } else hideError('passwordError');
+
+        if (!valid) return;
+
+        var loginBtn = document.getElementById('loginBtn');
+        loginBtn.disabled = true;
+        loginBtn.classList.add('is-loading');
+
+        try {
+            var result = await authenticateUser(email, pass);
+            if (!result.ok || !result.user) {
+                showError('usernameError', result.message || 'ایمیل یا رمز عبور اشتباه است');
+                showToast(result.message || 'ایمیل یا رمز عبور اشتباه است', 'error');
+                return;
+            }
+
+            saveUser(result.user);
+            showToast('ورود با موفقیت انجام شد!', 'success');
+
+            var redirect = localStorage.getItem('postLoginRedirect');
+            localStorage.removeItem('postLoginRedirect');
+            setTimeout(function () {
+                window.location.replace(redirect || dashboardForRole(result.user.role));
+            }, 500);
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.classList.remove('is-loading');
+        }
+    });
+</script>
+
+</body>
+
+</html>

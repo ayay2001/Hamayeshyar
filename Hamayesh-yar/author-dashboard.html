@@ -1,0 +1,1606 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="پنل نویسنده | سامانه مدیریت همایش همایش یار">
+    <title>پنل نویسنده | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== -->
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header">
+        <div id="navbar-placeholder"></div>
+    </header>
+
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             AUTHOR HERO
+        =================================================== -->
+        <section class="author-hero">
+            <div class="container">
+
+                <div class="author-hero-content">
+
+                    <!-- ===== متن ===== -->
+                    <div class="hero-left">
+
+                        <span class="page-badge">
+                            <i class="fas fa-user-pen"></i>
+                            پنل نویسنده
+                        </span>
+
+                        <h1 id="welcomeUser">
+                            خوش آمدید، نویسنده عزیز!
+                        </h1>
+
+                        <p id="welcomeMessage">
+                            به پنل نویسندگی خوش آمدید.
+                            مقالات خود را مدیریت کنید و جدیدترین مقالات را ارسال نمایید.
+                        </p>
+
+                        <div class="deadline-box">
+
+                            <div class="deadline-top">
+                                <span>
+                                    <i class="fas fa-clock"></i>
+                                    آخرین مهلت ارسال مقاله
+                                </span>
+
+                                <strong id="deadlineDate">
+                                    ۲۰ فروردین ۱۴۰۵
+                                </strong>
+                            </div>
+
+                            <div class="progress">
+                                <div
+                                    class="progress-bar"
+                                    id="deadlineProgress"
+                                    style="width: 65%;">
+                                </div>
+                            </div>
+
+                            <div class="deadline-bottom">
+                                <span>۶۵٪ زمان گذشته</span>
+                                <span>۳۵ روز باقی مانده</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ===== آمار ===== -->
+                    <div class="hero-right">
+
+                        <div class="hero-card">
+                            <div class="hero-card-icon">
+                                <i class="fa-solid fa-file-lines"></i>
+                            </div>
+
+                            <div>
+                                <h2 id="articleCount">۰</h2>
+                                <span>مقاله ثبت شده</span>
+                            </div>
+                        </div>
+
+
+                        <div class="hero-card">
+                            <div class="hero-card-icon">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+
+                            <div>
+                                <h2 id="reviewCount">۰</h2>
+                                <span>در حال داوری</span>
+                            </div>
+                        </div>
+
+
+                        <div class="hero-card">
+                            <div class="hero-card-icon">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+
+                            <div>
+                                <h2 id="acceptedCount">۰</h2>
+                                <span>پذیرفته شده</span>
+                            </div>
+                        </div>
+
+
+                        <div class="hero-card">
+                            <div class="hero-card-icon">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+
+                            <div>
+                                <h2 id="presentationCount">۰</h2>
+                                <span>ارائه آینده</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================================================
+             SUBMIT ARTICLE
+        =================================================== -->
+        <section class="submit-section">
+            <div class="container">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div class="card-header-left">
+                            <i class="fas fa-pen-to-square"></i>
+                            <h3>📝 ارسال مقاله جدید</h3>
+                        </div>
+
+                        <div class="card-header-right">
+                            <span class="badge badge-warning">
+                                <i class="fas fa-clock"></i>
+                                مهلت: ۲۰ فروردین
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <form id="submitArticleForm" class="author-form" novalidate>
+
+                        <!-- ===== عنوان ===== -->
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="title">
+                                    <i class="fas fa-heading"></i>
+                                    عنوان مقاله
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+                                    <i class="fas fa-heading"></i>
+
+                                    <input
+                                        type="text"
+                                        id="title"
+                                        placeholder="عنوان مقاله خود را وارد کنید"
+                                        required>
+                                </div>
+
+                                <div
+                                    class="form-error"
+                                    id="titleError"
+                                    style="display:none;">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ===== همایش ===== -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventId"><i class="fas fa-calendar-days"></i> همایش <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-calendar-days"></i>
+                                    <select id="eventId" required style="width:100%;padding:.9rem 1rem;border:1px solid #ddd;border-radius:12px;background:#fff;">
+                                        <option value="">در حال بارگذاری همایش‌ها...</option>
+                                    </select>
+                                </div>
+                                <div class="form-error" id="eventError" style="display:none;"></div>
+                            </div>
+                        </div>
+
+                        <!-- ===== چکیده ===== -->
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="abstract">
+                                    <i class="fas fa-align-left"></i>
+                                    چکیده
+                                    <span class="required">*</span>
+                                    <span class="char-hint">
+                                        (حداکثر ۳۰۰ کلمه)
+                                    </span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i
+                                        class="fas fa-align-left"
+                                        style="top:18px;transform:none;">
+                                    </i>
+
+                                    <textarea
+                                        id="abstract"
+                                        rows="4"
+                                        placeholder="چکیده مقاله خود را وارد کنید..."
+                                        required></textarea>
+
+                                </div>
+
+                                <div class="char-counter">
+                                    <span id="abstractCount">۰</span>
+                                    / ۳۰۰ کلمه
+                                </div>
+
+                                <div
+                                    class="form-error"
+                                    id="abstractError"
+                                    style="display:none;">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ===== کلمات کلیدی ===== -->
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="keywords">
+                                    <i class="fas fa-tags"></i>
+                                    کلمات کلیدی
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fas fa-tags"></i>
+
+                                    <input
+                                        type="text"
+                                        id="keywords"
+                                        placeholder="کلمات کلیدی را با کاما جدا کنید (مثال: هوش مصنوعی، داده‌کاوی)">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ===== فایل ===== -->
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="file">
+                                    <i class="fas fa-file-pdf"></i>
+                                    فایل مقاله (PDF)
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="file-upload-wrapper">
+
+                                    <input
+                                        type="file"
+                                        id="file"
+                                        accept=".pdf,application/pdf"
+                                        required>
+
+                                    <div class="file-upload-area">
+
+                                        <i class="fas fa-cloud-upload-alt"></i>
+
+                                        <p>
+                                            فایل PDF خود را اینجا بکشید یا کلیک کنید
+                                        </p>
+
+                                        <span class="file-hint">
+                                            حداکثر ۵ مگابایت
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="form-error"
+                                    id="fileError"
+                                    style="display:none;">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ===== دکمه‌ها ===== -->
+                        <div class="form-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-large"
+                                id="submitBtn">
+
+                                <i class="fas fa-paper-plane"></i>
+                                ارسال مقاله
+
+                            </button>
+
+                            <button
+                                type="reset"
+                                class="btn btn-outline btn-large"
+                                id="resetBtn">
+
+                                <i class="fas fa-undo"></i>
+                                بازنشانی
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================================================
+             MY ARTICLES
+        =================================================== -->
+        <section class="table-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span>مدیریت</span>
+
+                    <h2>📄 مقالات من</h2>
+
+                    <p>
+                        لیست مقالات ارسال شده و وضعیت آن‌ها را در این بخش مشاهده کنید.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div class="card-header-left">
+
+                            <i class="fas fa-list-ul"></i>
+
+                            <h3>
+                                مقالات ارسال شده
+                            </h3>
+
+                        </div>
+
+
+                        <div class="card-header-right">
+
+                            <span
+                                class="badge badge-primary"
+                                id="myArticlesCount">
+                                ۰ مقاله
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table
+                            class="table"
+                            id="articlesTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        <i class="fas fa-file-alt"></i>
+                                        عنوان مقاله
+                                    </th>
+
+                                    <th>
+                                        <i class="fas fa-calendar-plus"></i>
+                                        تاریخ ارسال
+                                    </th>
+
+                                    <th>
+                                        <i class="fas fa-flag"></i>
+                                        وضعیت
+                                    </th>
+
+                                    <th>
+                                        <i class="fas fa-gavel"></i>
+                                        نتیجه نهایی
+                                    </th>
+
+                                    <th>
+                                        <i class="fas fa-microphone"></i>
+                                        برنامه ارائه
+                                    </th>
+
+                                    <th>
+                                        <i class="fas fa-cog"></i>
+                                        عملیات
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="articlesList">
+                                <!-- توسط JavaScript پر می‌شود -->
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+    <div id="site-footer"></div>
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+    <script src="js/toast.js"></script>
+
+    <!-- ۳. توابع اصلی اپلیکیشن -->
+    <script src="js/app.js"></script>
+
+    <!-- ۴. Header / Footer مشترک -->
+    <script src="js/layout.js"></script>
+
+
+    <!-- ==================================================
+         AUTHOR DASHBOARD SCRIPT
+    =================================================== -->
+    <script>
+
+        (function () {
+
+            'use strict';
+
+
+            /* =================================================
+               DOM HELPERS
+            ================================================= */
+
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+
+            function toPersianNumber(value) {
+
+                return String(value)
+                    .replace(/\d/g, function (digit) {
+                        return '۰۱۲۳۴۵۶۷۸۹'[digit];
+                    });
+
+            }
+
+
+            /* =================================================
+               USER
+            ================================================= */
+
+            var user = getUser();
+
+            if (!user) {
+                window.location.replace('login.html');
+                return;
+            }
+
+
+            if (user.role !== 'author') {
+
+                if (typeof showToast === 'function') {
+                    showToast(
+                        '⛔ شما دسترسی به پنل نویسنده را ندارید.',
+                        'error'
+                    );
+                }
+
+                window.location.replace(
+                    typeof dashboardForRole === 'function'
+                        ? dashboardForRole(user.role)
+                        : 'index.html'
+                );
+
+                return;
+            }
+
+
+            /* =================================================
+               USER INFO
+            ================================================= */
+
+            $('welcomeUser').textContent =
+                'خوش آمدید، ' + (user.name || 'نویسنده عزیز') + '!';
+
+
+            $('welcomeMessage').textContent =
+                'به پنل نویسندگی خوش آمدید. مقالات خود را مدیریت کنید و جدیدترین مقالات را ارسال نمایید.';
+
+
+            /* =================================================
+               STATUS
+            ================================================= */
+
+            function getStatusBadge(status) {
+
+                var statusMap = {
+
+                    pending:
+                        '<span class="status-badge status-pending">' +
+                        '<i class="fas fa-hourglass-start"></i> در انتظار</span>',
+
+                    reviewing:
+                        '<span class="status-badge status-reviewing">' +
+                        '<i class="fas fa-spinner"></i> در حال داوری</span>',
+
+                    reviewed:
+                        '<span class="status-badge status-info">' +
+                        '<i class="fas fa-check-double"></i> داوری شده</span>',
+
+                    accepted:
+                        '<span class="status-badge status-success">' +
+                        '<i class="fas fa-check-circle"></i> پذیرفته شده</span>',
+
+                    rejected:
+                        '<span class="status-badge status-danger">' +
+                        '<i class="fas fa-times-circle"></i> رد شده</span>',
+
+                    revision:
+                        '<span class="status-badge status-warning">' +
+                        '<i class="fas fa-rotate"></i> نیاز به اصلاح</span>'
+                };
+
+                return statusMap[status] || statusMap.pending;
+            }
+
+
+            /* =================================================
+               FINAL DECISION
+            ================================================= */
+
+            function getDecisionText(decision) {
+
+                if (decision === 'accept') {
+                    return 'پذیرش ✅';
+                }
+
+                if (decision === 'reject') {
+                    return 'رد ❌';
+                }
+
+                if (decision === 'revision') {
+                    return 'نیاز به اصلاح ✏️';
+                }
+
+                return 'در انتظار تصمیم ⏳';
+            }
+
+
+            /* =================================================
+               PRESENTATION
+            ================================================= */
+
+            function getPresentationInfo(article) {
+
+                if (!article.presentation) {
+                    return '---';
+                }
+
+                var p = article.presentation;
+
+                return (
+                    (p.date || '---') +
+                    ' - ' +
+                    (p.time || '---') +
+                    '<br>' +
+                    (p.hall || '---')
+                );
+            }
+
+
+            /* =================================================
+               ERROR
+            ================================================= */
+
+            function showError(elementId, message) {
+
+                var element = $(elementId);
+
+                if (!element) {
+                    return;
+                }
+
+                element.innerHTML =
+                    '<i class="fas fa-exclamation-circle"></i> ' +
+                    message;
+
+                element.style.display = 'block';
+            }
+
+
+            function hideError(elementId) {
+
+                var element = $(elementId);
+
+                if (!element) {
+                    return;
+                }
+
+                element.innerHTML = '';
+                element.style.display = 'none';
+            }
+
+
+            function clearErrors() {
+
+                hideError('titleError');
+                hideError('abstractError');
+                hideError('fileError');
+                hideError('eventError');
+
+            }
+
+
+            async function loadSubmissionEvents() {
+                var select = $('eventId');
+                if (!select || !window.apiRequest) return;
+                try {
+                    var result = await apiRequest('events.php', { method: 'GET' });
+                    if (!result.ok) throw new Error(result.message || 'دریافت همایش‌ها انجام نشد.');
+                    var events = result.events || [];
+                    select.innerHTML = '<option value="">انتخاب همایش</option>' + events.map(function(e){
+                        var date = e.start_date || '';
+                        return '<option value="' + e.id + '">' + (e.title || 'همایش') + (date ? ' — ' + date : '') + '</option>';
+                    }).join('');
+                } catch (error) {
+                    select.innerHTML = '<option value="">همایشی برای ارسال مقاله موجود نیست</option>';
+                    showToast(error.message || 'دریافت همایش‌ها انجام نشد.', 'warning');
+                }
+            }
+
+            loadSubmissionEvents();
+
+            /* =================================================
+               GET CURRENT ARTICLES
+            ================================================= */
+
+            function getCurrentArticles() {
+                return Array.isArray(window.articlesData) ? window.articlesData : [];
+            }
+
+            function normalizeArticles(rows) {
+                return (Array.isArray(rows) ? rows : []).map(function (article) {
+                    return {
+                        id: article.id,
+                        eventId: article.event_id,
+                        title: article.title,
+                        abstract: article.abstract,
+                        keywords: article.keywords || '',
+                        authorId: user.id,
+                        authorName: user.name || 'نویسنده',
+                        submitDate: article.submitted_at ? new Date(article.submitted_at.replace(' ', 'T')).toLocaleDateString('fa-IR') : '---',
+                        status: article.status,
+                        finalDecision: article.final_decision,
+                        file: article.file_path || '',
+                        revisionFile: article.revision_file_path || '',
+                        revisionDate: article.revision_submitted_at ? new Date(article.revision_submitted_at.replace(' ', 'T')).toLocaleDateString('fa-IR') : '',
+                        reviews: Array.isArray(article.reviews) ? article.reviews : [],
+                        reviewers: [],
+                        presentation: null
+                    };
+                });
+            }
+
+
+            /* =================================================
+               LOAD USER ARTICLES
+            ================================================= */
+
+            async function loadUserArticles() {
+
+                var result = await apiRequest('articles/list.php', { method: 'GET' });
+                if (!result.ok) {
+                    showToast(result.message || 'دریافت مقالات انجام نشد.', 'error');
+                    return;
+                }
+
+                window.articlesData = normalizeArticles(result.articles);
+                var myArticles = getCurrentArticles();
+
+
+                var tbody = $('articlesList');
+
+
+                /* ===== STATS ===== */
+
+                var total =
+                    myArticles.length;
+
+
+                var reviewing =
+                    myArticles.filter(function (article) {
+
+                        return (
+                            article.status === 'reviewing' ||
+                            article.status === 'reviewed'
+                        );
+
+                    }).length;
+
+
+                var accepted =
+                    myArticles.filter(function (article) {
+
+                        return (
+                            article.finalDecision === 'accept' ||
+                            article.status === 'accepted'
+                        );
+
+                    }).length;
+
+
+                var presentations =
+                    myArticles.filter(function (article) {
+
+                        return !!article.presentation;
+
+                    }).length;
+
+
+                $('articleCount').textContent =
+                    toPersianNumber(total);
+
+                $('reviewCount').textContent =
+                    toPersianNumber(reviewing);
+
+                $('acceptedCount').textContent =
+                    toPersianNumber(accepted);
+
+                $('presentationCount').textContent =
+                    toPersianNumber(presentations);
+
+                $('myArticlesCount').textContent =
+                    toPersianNumber(total) + ' مقاله';
+
+
+                /* ===== EMPTY ===== */
+
+                if (myArticles.length === 0) {
+
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="empty-state">
+                                <i class="fas fa-inbox"></i>
+
+                                <p>
+                                    هیچ مقاله‌ای ارسال نشده است
+                                </p>
+
+                                <span class="empty-hint">
+                                    اولین مقاله خود را از طریق فرم بالا ارسال کنید.
+                                </span>
+                            </td>
+                        </tr>
+                    `;
+
+                    return;
+                }
+
+
+                /* ===== TABLE ===== */
+
+                var html = '';
+
+
+                myArticles.forEach(function (article) {
+
+                    var revisionButton = '';
+
+
+                    if (
+                        article.status === 'revision' ||
+                        article.finalDecision === 'revision'
+                    ) {
+
+                        revisionButton = `
+                            <button
+                                type="button"
+                                class="btn btn-warning btn-sm"
+                                onclick="uploadRevision(${Number(article.id)})"
+                                title="بارگذاری اصلاحیه">
+
+                                <i class="fas fa-upload"></i>
+                                اصلاحیه
+
+                            </button>
+                        `;
+                    }
+
+
+                    html += `
+                        <tr>
+
+                            <td>
+                                <div class="article-title-cell">
+                                    <span class="article-title">
+                                        ${article.title || 'بدون عنوان'}
+                                    </span>
+                                </div>
+                            </td>
+
+
+                            <td>
+                                ${article.submitDate || '---'}
+                            </td>
+
+
+                            <td>
+                                ${getStatusBadge(article.status)}
+                            </td>
+
+
+                            <td class="decision-cell">
+                                ${getDecisionText(article.finalDecision)}
+                            </td>
+
+
+                            <td>
+                                ${getPresentationInfo(article)}
+                            </td>
+
+
+                            <td>
+
+                                <div class="action-buttons">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary btn-sm"
+                                        onclick="viewDetails(${Number(article.id)})"
+                                        title="مشاهده جزئیات">
+
+                                        <i class="fas fa-eye"></i>
+
+                                    </button>
+
+                                    ${revisionButton}
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    `;
+                });
+
+
+                tbody.innerHTML = html;
+
+            }
+
+
+            /* =================================================
+               VIEW DETAILS
+            ================================================= */
+
+            window.viewDetails = function (articleId) {
+
+                var articles = getCurrentArticles();
+
+
+                var article = null;
+
+
+                for (var i = 0; i < articles.length; i++) {
+
+                    if (
+                        String(articles[i].id) ===
+                        String(articleId)
+                    ) {
+
+                        article = articles[i];
+                        break;
+                    }
+                }
+
+
+                if (!article) {
+
+                    showToast(
+                        'مقاله یافت نشد.',
+                        'error'
+                    );
+
+                    return;
+                }
+
+
+                /* جلوگیری از مشاهده مقاله نویسنده دیگر */
+
+                if (
+                    String(article.authorId) !==
+                    String(user.id)
+                ) {
+
+                    showToast(
+                        '⛔ شما اجازه مشاهده این مقاله را ندارید.',
+                        'error'
+                    );
+
+                    return;
+                }
+
+
+                var message =
+                    '📄 جزئیات مقاله\n\n';
+
+
+                message +=
+                    '📌 عنوان: ' +
+                    (article.title || '---') +
+                    '\n';
+
+
+                message +=
+                    '👤 نویسنده: ' +
+                    (article.authorName || user.name || '---') +
+                    '\n';
+
+
+                message +=
+                    '📅 تاریخ ارسال: ' +
+                    (article.submitDate || '---') +
+                    '\n';
+
+
+                message +=
+                    '📊 وضعیت: ' +
+                    (article.status || '---') +
+                    '\n';
+
+
+                message +=
+                    '⚖️ تصمیم نهایی: ' +
+                    getDecisionText(article.finalDecision) +
+                    '\n';
+
+
+                message += '\n';
+
+
+                /* ===== REVIEWS ===== */
+
+                if (
+                    Array.isArray(article.reviews) &&
+                    article.reviews.length > 0
+                ) {
+
+                    message +=
+                        '📝 نظرات داوران:\n';
+
+
+                    article.reviews.forEach(function (review) {
+
+                        message +=
+                            '   - داور ' +
+                            (review.reviewerId || '---') +
+                            ': امتیاز ' +
+                            (review.score || '---') +
+                            ' | ' +
+                            (review.comment || 'بدون نظر') +
+                            '\n';
+
+                    });
+
+                } else {
+
+                    message +=
+                        '📝 هنوز داوری انجام نشده است.';
+
+                }
+
+
+                /* ===== PRESENTATION ===== */
+
+                if (article.presentation) {
+
+                    message +=
+                        '\n\n🎤 برنامه ارائه:\n';
+
+
+                    message +=
+                        '   📅 تاریخ: ' +
+                        (article.presentation.date || '---') +
+                        '\n';
+
+
+                    message +=
+                        '   🕐 زمان: ' +
+                        (article.presentation.time || '---') +
+                        '\n';
+
+
+                    message +=
+                        '   🏛️ سالن: ' +
+                        (article.presentation.hall || '---');
+
+                }
+
+
+                alert(message);
+
+            };
+
+
+            /* =================================================
+               UPLOAD REVISION
+            ================================================= */
+
+            window.uploadRevision = function (articleId) {
+
+                var articles = getCurrentArticles();
+
+
+                var article = null;
+
+
+                for (var i = 0; i < articles.length; i++) {
+
+                    if (
+                        String(articles[i].id) ===
+                        String(articleId)
+                    ) {
+
+                        article = articles[i];
+                        break;
+                    }
+                }
+
+
+                if (!article) {
+
+                    showToast(
+                        'مقاله یافت نشد.',
+                        'error'
+                    );
+
+                    return;
+                }
+
+
+                if (
+                    String(article.authorId) !==
+                    String(user.id)
+                ) {
+
+                    showToast(
+                        '⛔ شما اجازه ویرایش این مقاله را ندارید.',
+                        'error'
+                    );
+
+                    return;
+                }
+
+
+                var input =
+                    document.createElement('input');
+
+                input.type = 'file';
+                input.accept = '.pdf,application/pdf';
+
+
+                input.onchange = async function (event) {
+
+                    var file =
+                        event.target.files &&
+                        event.target.files[0];
+
+
+                    if (!file) {
+                        return;
+                    }
+
+
+                    if (
+                        file.type !==
+                        'application/pdf'
+                    ) {
+
+                        showToast(
+                            'لطفاً فقط فایل PDF انتخاب کنید.',
+                            'error'
+                        );
+
+                        return;
+                    }
+
+
+                    if (
+                        file.size >
+                        5 * 1024 * 1024
+                    ) {
+
+                        showToast(
+                            'حجم فایل نباید بیشتر از ۵ مگابایت باشد.',
+                            'error'
+                        );
+
+                        return;
+                    }
+
+
+                    var formData = new FormData();
+                    formData.append('article_id', String(articleId));
+                    formData.append('file', file);
+
+                    try {
+                        var result = await fetch('backend/api/articles/revision.php', {
+                            method: 'POST',
+                            credentials: 'same-origin',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        var data = await result.json();
+                        if (!result.ok || data.ok === false) {
+                            throw new Error(data.message || 'ثبت اصلاحیه انجام نشد.');
+                        }
+
+                        showToast('✅ ' + (data.message || 'نسخه اصلاح‌شده ثبت شد.'), 'success');
+                        await loadUserArticles();
+                        return;
+                    } catch (error) {
+                        showToast(error.message || 'ارتباط با سرور برقرار نشد.', 'error');
+                        return;
+                    }
+
+
+                    showToast(
+                        '✅ نسخه اصلاح‌شده مقاله با موفقیت ثبت شد و دوباره برای بررسی ارسال گردید.',
+                        'success'
+                    );
+
+
+                    loadUserArticles();
+
+                };
+
+
+                input.click();
+
+            };
+
+
+            /* =================================================
+               ABSTRACT COUNTER
+            ================================================= */
+
+            $('abstract').addEventListener(
+                'input',
+                function () {
+
+                    var text =
+                        this.value.trim();
+
+
+                    if (!text) {
+
+                        $('abstractCount').textContent =
+                            '۰';
+
+                        return;
+                    }
+
+
+                    var words =
+                        text.split(/\s+/)
+                            .filter(function (word) {
+                                return word.length > 0;
+                            });
+
+
+                    if (words.length > 300) {
+
+                        this.value =
+                            words.slice(0, 300).join(' ');
+
+                        words =
+                            this.value
+                                .trim()
+                                .split(/\s+/);
+
+                    }
+
+
+                    $('abstractCount').textContent =
+                        toPersianNumber(words.length);
+
+                }
+            );
+
+
+            /* =================================================
+               LIVE VALIDATION
+            ================================================= */
+
+            $('title').addEventListener(
+                'input',
+                function () {
+
+                    if (this.value.trim()) {
+                        hideError('titleError');
+                    }
+
+                }
+            );
+
+
+            $('abstract').addEventListener(
+                'input',
+                function () {
+
+                    if (this.value.trim()) {
+                        hideError('abstractError');
+                    }
+
+                }
+            );
+
+
+            /* =================================================
+               FILE VISUAL
+            ================================================= */
+
+            $('file').addEventListener(
+                'change',
+                function () {
+
+                    var area =
+                        this.parentElement
+                            .querySelector('.file-upload-area');
+
+
+                    var file =
+                        this.files &&
+                        this.files[0];
+
+
+                    if (!file) {
+
+                        area.innerHTML = `
+                            <i class="fas fa-cloud-upload-alt"></i>
+
+                            <p>
+                                فایل PDF خود را اینجا بکشید یا کلیک کنید
+                            </p>
+
+                            <span class="file-hint">
+                                حداکثر ۵ مگابایت
+                            </span>
+                        `;
+
+                        return;
+                    }
+
+
+                    area.innerHTML = `
+                        <i
+                            class="fas fa-file-pdf"
+                            style="color:#22c55e;">
+                        </i>
+
+                        <p>
+                            ${file.name}
+                        </p>
+
+                        <span class="file-hint">
+                            ${(file.size / 1024).toFixed(1)} KB
+                        </span>
+                    `;
+
+                }
+            );
+
+
+            /* =================================================
+               RESET FORM
+            ================================================= */
+
+            $('submitArticleForm').addEventListener(
+                'reset',
+                function () {
+
+                    window.setTimeout(
+                        function () {
+
+                            clearErrors();
+
+                            $('abstractCount').textContent =
+                                '۰';
+
+
+                            var area =
+                                $('file')
+                                    .parentElement
+                                    .querySelector('.file-upload-area');
+
+
+                            area.innerHTML = `
+                                <i class="fas fa-cloud-upload-alt"></i>
+
+                                <p>
+                                    فایل PDF خود را اینجا بکشید یا کلیک کنید
+                                </p>
+
+                                <span class="file-hint">
+                                    حداکثر ۵ مگابایت
+                                </span>
+                            `;
+
+                        },
+                        0
+                    );
+
+                }
+            );
+
+
+            /* =================================================
+               SUBMIT ARTICLE
+            ================================================= */
+
+            $('submitArticleForm').addEventListener(
+                'submit',
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    clearErrors();
+
+
+                    var title =
+                        $('title').value.trim();
+
+
+                    var abstract =
+                        $('abstract').value.trim();
+
+
+                    var keywords =
+                        $('keywords').value.trim();
+
+                    var eventId = $('eventId') ? $('eventId').value : '';
+
+
+                    var file =
+                        $('file').files &&
+                        $('file').files[0];
+
+
+                    var valid = true;
+
+
+                    /* ===== TITLE ===== */
+
+                    if (!title) {
+
+                        showError(
+                            'titleError',
+                            'لطفاً عنوان مقاله را وارد کنید.'
+                        );
+
+                        valid = false;
+
+                    }
+
+
+                    /* ===== ABSTRACT ===== */
+
+                    var abstractWords =
+                        abstract
+                            ? abstract
+                                .split(/\s+/)
+                                .filter(function (word) {
+                                    return word.length > 0;
+                                })
+                            : [];
+
+
+                    if (!abstract) {
+
+                        showError(
+                            'abstractError',
+                            'لطفاً چکیده مقاله را وارد کنید.'
+                        );
+
+                        valid = false;
+
+                    } else if (
+                        abstractWords.length > 300
+                    ) {
+
+                        showError(
+                            'abstractError',
+                            'چکیده نمی‌تواند بیشتر از ۳۰۰ کلمه باشد.'
+                        );
+
+                        valid = false;
+
+                    }
+
+
+                    /* ===== EVENT ===== */
+
+                    if (!eventId) {
+                        showError('eventError', 'لطفاً همایش مقصد مقاله را انتخاب کنید.');
+                        valid = false;
+                    }
+
+                    /* ===== FILE ===== */
+
+                    if (!file) {
+
+                        showError(
+                            'fileError',
+                            'لطفاً فایل PDF مقاله را انتخاب کنید.'
+                        );
+
+                        valid = false;
+
+                    } else {
+
+                        var isPdf =
+                            file.type ===
+                                'application/pdf' ||
+                            /\.pdf$/i.test(file.name);
+
+
+                        if (!isPdf) {
+
+                            showError(
+                                'fileError',
+                                'لطفاً فقط فایل PDF ارسال کنید.'
+                            );
+
+                            valid = false;
+
+                        } else if (
+                            file.size >
+                            5 * 1024 * 1024
+                        ) {
+
+                            showError(
+                                'fileError',
+                                'حجم فایل نباید بیشتر از ۵ مگابایت باشد.'
+                            );
+
+                            valid = false;
+
+                        }
+
+                    }
+
+
+                    if (!valid) {
+                        return;
+                    }
+
+
+                    var formData = new FormData();
+                    formData.append('title', title);
+                    formData.append('abstract', abstract);
+                    formData.append('keywords', keywords);
+                    formData.append('event_id', eventId);
+                    formData.append('file', file);
+
+                    var submitBtn = $('submitBtn');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.dataset.originalText = submitBtn.innerHTML;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال ارسال...';
+                    }
+
+                    try {
+                        var result = await fetch('backend/api/articles/submit.php', {
+                            method: 'POST',
+                            credentials: 'same-origin',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        var data = await result.json();
+
+                        if (!result.ok || data.ok === false) {
+                            throw new Error(data.message || 'ارسال مقاله انجام نشد.');
+                        }
+
+                        showToast('✅ ' + (data.message || 'مقاله با موفقیت ارسال شد.'), 'success');
+                        this.reset();
+                        await loadUserArticles();
+                    } catch (error) {
+                        showToast(error.message || 'ارتباط با سرور برقرار نشد.', 'error');
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitBtn.dataset.originalText || '<i class="fas fa-paper-plane"></i> ارسال مقاله';
+                        }
+                    }
+
+                }
+            );
+
+
+            /* =================================================
+               INITIAL LOAD
+            ================================================= */
+
+            loadUserArticles();
+
+
+        })();
+
+    </script>
+
+</body>
+</html>
+

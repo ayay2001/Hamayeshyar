@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نظرسنجی | سامانه مدیریت همایش همایش یار">
+    <title>نظرسنجی | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        </head>
+
+<body>
+
+       <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             SURVEY HERO
+        =================================================== -->
+        <section class="survey-hero">
+            <div class="container">
+                <div class="survey-hero-content">
+                    <div class="survey-hero-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h1>📝 نظرسنجی</h1>
+                    <p>نظر شما برای بهبود کیفیت سامانه بسیار ارزشمند است. لطفاً چند دقیقه وقت بگذارید و نظرات خود را با ما به اشتراک بگذارید.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             SURVEY FORM
+        =================================================== -->
+        <section class="survey-form-section">
+            <div class="container">
+
+                <div class="survey-card">
+                    <div class="survey-card-header">
+                        <div class="survey-card-header-left">
+                            <i class="fas fa-pen-to-square"></i>
+                            <h2>فرم نظرسنجی</h2>
+                        </div>
+                        <span class="survey-badge">
+                            <i class="fas fa-star"></i>
+                            نظر شما مهم است
+                        </span>
+                    </div>
+
+                    <form class="survey-form" id="surveyForm" novalidate>
+                        
+                        <!-- ===== نام ===== -->
+                        <div class="form-group">
+                            <label for="name">
+                                <i class="fas fa-user"></i>
+                                نام شما
+                                <span class="required">*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="name" name="name" 
+                                       placeholder="نام خود را وارد کنید" 
+                                       required autocomplete="name">
+                                <span class="input-focus-border"></span>
+                            </div>
+                            <div class="form-error" id="nameError">لطفاً نام خود را وارد کنید</div>
+                        </div>
+
+                        <!-- ===== ایمیل ===== -->
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                ایمیل
+                                <span class="required">*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" name="email" 
+                                       placeholder="example@email.com" 
+                                       required autocomplete="email">
+                                <span class="input-focus-border"></span>
+                            </div>
+                            <div class="form-error" id="emailError">لطفاً یک ایمیل معتبر وارد کنید</div>
+                        </div>
+
+                        <!-- ===== رتبه ===== -->
+                        <div class="form-group">
+                            <label for="rate">
+                                <i class="fas fa-star"></i>
+                                امتیاز شما به سامانه
+                                <span class="required">*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-star"></i>
+                                <select id="rate" name="rate" required>
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="5">⭐ عالی</option>
+                                    <option value="4">🌟🌟 خوب</option>
+                                    <option value="3">🌟🌟🌟 متوسط</option>
+                                    <option value="2">🌟🌟🌟🌟 ضعیف</option>
+                                    <option value="1">🌟🌟🌟🌟🌟 خیلی ضعیف</option>
+                                </select>
+                                <span class="input-focus-border"></span>
+                            </div>
+                            <div class="form-error" id="rateError">لطفاً یک امتیاز انتخاب کنید</div>
+                        </div>
+
+                        <!-- ===== رضایت ===== -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-smile"></i>
+                                میزان رضایت شما از سامانه
+                            </label>
+                            <div class="satisfaction-options">
+                                <label class="satisfaction-option">
+                                    <input type="radio" name="satisfaction" value="very-satisfied">
+                                    <span class="emoji">😍</span>
+                                    <span class="label">بسیار راضی</span>
+                                </label>
+                                <label class="satisfaction-option">
+                                    <input type="radio" name="satisfaction" value="satisfied">
+                                    <span class="emoji">😊</span>
+                                    <span class="label">راضی</span>
+                                </label>
+                                <label class="satisfaction-option">
+                                    <input type="radio" name="satisfaction" value="neutral">
+                                    <span class="emoji">😐</span>
+                                    <span class="label">متوسط</span>
+                                </label>
+                                <label class="satisfaction-option">
+                                    <input type="radio" name="satisfaction" value="dissatisfied">
+                                    <span class="emoji">😞</span>
+                                    <span class="label">ناراضی</span>
+                                </label>
+                                <label class="satisfaction-option">
+                                    <input type="radio" name="satisfaction" value="very-dissatisfied">
+                                    <span class="emoji">😡</span>
+                                    <span class="label">بسیار ناراضی</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- ===== توضیحات ===== -->
+                        <div class="form-group">
+                            <label for="message">
+                                <i class="fas fa-comment"></i>
+                                توضیحات و پیشنهادات
+                                <span class="required">*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-comment" style="top: 18px; transform: none;"></i>
+                                <textarea id="message" name="message" rows="5" 
+                                          placeholder="نظر، پیشنهاد یا انتقاد خود را بنویسید..." 
+                                          required></textarea>
+                                <span class="input-focus-border"></span>
+                            </div>
+                            <div class="char-counter">
+                                <span id="charCount">0</span> / ۵۰۰ کاراکتر
+                            </div>
+                            <div class="form-error" id="messageError">لطفاً نظر خود را وارد کنید</div>
+                        </div>
+
+                        <!-- ===== رضایت به دریافت خبرنامه ===== -->
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                    مایل به دریافت خبرنامه و اطلاعیه‌های همایش یار هستم
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- ===== دکمه ارسال ===== -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-large" id="submitBtn">
+                                <i class="fas fa-paper-plane"></i>
+                                ارسال نظرسنجی
+                                <span class="btn-loader" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                            <button type="reset" class="btn btn-outline btn-large">
+                                <i class="fas fa-undo"></i>
+                                بازنشانی
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- ===== اطلاعات تماس ===== -->
+                <div class="survey-contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>زمان پاسخگویی</h4>
+                            <p>کمتر از ۵ دقیقه</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-lock"></i>
+                        <div>
+                            <h4>حریم خصوصی</h4>
+                            <p>اطلاعات شما محفوظ است</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-headset"></i>
+                        <div>
+                            <h4>پشتیبانی</h4>
+                            <p>پاسخگویی ۲۴/۷</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+    <script src="js/layout.js"></script>
+
+    <script>
+        const messageInput = document.getElementById('message');
+        const charCount = document.getElementById('charCount');
+        const form = document.getElementById('surveyForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        async function prefillSurveyUser(){
+            try {
+                const r = await fetch('backend/api/auth/me.php', {credentials:'same-origin'});
+                const d = await r.json();
+                if (d.ok && d.user) {
+                    document.getElementById('name').value = d.user.name || '';
+                    document.getElementById('email').value = d.user.email || '';
+                }
+            } catch (_) {}
+        }
+        prefillSurveyUser();
+
+        messageInput.addEventListener('input', function(){
+            if (this.value.length > 500) this.value = this.value.substring(0,500);
+            charCount.textContent = this.value.length;
+        });
+
+        form.addEventListener('submit', async function(e){
+            e.preventDefault();
+            let valid = true;
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const rate = document.getElementById('rate');
+            const message = document.getElementById('message');
+
+            function errorFor(el, errorId, bad){
+                const errorEl=document.getElementById(errorId);
+                el.parentElement.classList.toggle('error', bad);
+                if(errorEl) errorEl.style.display=bad?'block':'none';
+                if(bad) valid=false;
+            }
+            errorFor(name,'nameError',!name.value.trim());
+            errorFor(email,'emailError',!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()));
+            errorFor(rate,'rateError',!rate.value);
+            errorFor(message,'messageError',!message.value.trim() || message.value.trim().length<5);
+            if(!valid) return;
+
+            submitBtn.disabled=true;
+            const loader=submitBtn.querySelector('.btn-loader');
+            if(loader) loader.style.display='inline';
+            try {
+                const payload={
+                    name:name.value.trim(), email:email.value.trim(), rate:Number(rate.value),
+                    satisfaction:(document.querySelector('input[name="satisfaction"]:checked')||{}).value || 'neutral',
+                    message:message.value.trim(), newsletter:document.getElementById('newsletter').checked
+                };
+                const r=await fetch('backend/api/surveys.php',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify(payload)});
+                const d=await r.json();
+                if(!r.ok || !d.ok) throw new Error(d.message || 'ارسال نظرسنجی انجام نشد.');
+                alert('✅ نظر شما با موفقیت در سامانه ثبت شد.');
+                form.reset(); charCount.textContent='0';
+                document.querySelectorAll('.form-error').forEach(el=>el.style.display='none');
+                document.querySelectorAll('.input-wrapper').forEach(el=>el.classList.remove('error'));
+                prefillSurveyUser();
+            } catch(err) {
+                alert('❌ '+err.message);
+            } finally {
+                submitBtn.disabled=false;
+                if(loader) loader.style.display='none';
+            }
+        });
+
+        document.querySelectorAll('#name,#email,#rate,#message').forEach(input=>input.addEventListener('input',function(){
+            this.parentElement.classList.remove('error');
+            const e=this.closest('.form-group')?.querySelector('.form-error');
+            if(e) e.style.display='none';
+        }));
+        document.querySelector('button[type="reset"]')?.addEventListener('click',function(){
+            document.querySelectorAll('.form-error').forEach(el=>el.style.display='none');
+            document.querySelectorAll('.input-wrapper').forEach(el=>el.classList.remove('error'));
+            charCount.textContent='0';
+        });
+    </script>
+
+</body>
+</html>

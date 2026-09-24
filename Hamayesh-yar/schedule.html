@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="برنامه همایش | سامانه مدیریت همایش همایش یار">
+    <title>برنامه همایش | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        </head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             PAGE HEADER
+        =================================================== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <div>
+                        <span class="page-badge">
+                            <i class="fas fa-clock"></i>
+                            برنامه همایش
+                        </span>
+                        <h1>📅 زمان‌بندی همایش</h1>
+                        <p>برنامه کامل جلسات، سخنرانی‌ها و رویدادهای همایش را در این بخش مشاهده کنید.</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <button class="btn btn-outline btn-sm" onclick="window.print()">
+                            <i class="fas fa-print"></i>
+                            چاپ برنامه
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="downloadSchedule()">
+                            <i class="fas fa-download"></i>
+                            دانلود PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             SCHEDULE INFO
+        =================================================== -->
+        <section class="schedule-info">
+            <div class="container">
+                <div class="schedule-info-grid">
+                    <div class="info-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <span>تاریخ برگزاری</span>
+                            <strong>۲۰ - ۲۲ شهریور ۱۴۰۴</strong>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-map-pin"></i>
+                        <div>
+                            <span>محل برگزاری</span>
+                            <strong>سالن همایش دانشکده</strong>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <span>ساعت شروع</span>
+                            <strong>۰۸:۰۰ صبح</strong>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-microphone"></i>
+                        <div>
+                            <span>تعداد ارائه‌ها</span>
+                            <strong>۴۲ سخنرانی</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             SCHEDULE FILTER
+        =================================================== -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <select id="dayFilter" onchange="filterSchedule()" class="filter-select">
+                            <option value="all">همه روزها</option>
+                            <option value="day1">روز اول - ۲۰ شهریور</option>
+                            <option value="day2">روز دوم - ۲۱ شهریور</option>
+                            <option value="day3">روز سوم - ۲۲ شهریور</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="hallFilter" onchange="filterSchedule()" class="filter-select">
+                            <option value="all">همه سالن‌ها</option>
+                            <option value="main">سالن اصلی</option>
+                            <option value="hall1">سالن شماره ۱</option>
+                            <option value="hall2">سالن شماره ۲</option>
+                            <option value="workshop">کارگاه‌ها</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="typeFilter" onchange="filterSchedule()" class="filter-select">
+                            <option value="all">همه انواع</option>
+                            <option value="keynote">سخنرانی کلیدی</option>
+                            <option value="speech">سخنرانی</option>
+                            <option value="panel">پنل</option>
+                            <option value="workshop">کارگاه</option>
+                            <option value="break">استراحت</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <button class="btn btn-primary btn-sm" onclick="filterSchedule()">
+                            <i class="fas fa-filter"></i>
+                            اعمال فیلتر
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="resetFilters()">
+                            <i class="fas fa-undo"></i>
+                            بازنشانی
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             SCHEDULE TIMELINE
+        =================================================== -->
+        <section class="schedule-timeline">
+            <div class="container">
+
+                <div class="schedule-tabs">
+                    <button class="tab-btn active" data-day="all" onclick="switchTab('all')">
+                        <i class="fas fa-calendar-week"></i>
+                        همه روزها
+                    </button>
+                    <button class="tab-btn" data-day="day1" onclick="switchTab('day1')">
+                        <i class="fas fa-calendar-day"></i>
+                        روز اول - ۲۰ شهریور
+                    </button>
+                    <button class="tab-btn" data-day="day2" onclick="switchTab('day2')">
+                        <i class="fas fa-calendar-day"></i>
+                        روز دوم - ۲۱ شهریور
+                    </button>
+                    <button class="tab-btn" data-day="day3" onclick="switchTab('day3')">
+                        <i class="fas fa-calendar-day"></i>
+                        روز سوم - ۲۲ شهریور
+                    </button>
+                </div>
+
+                <div class="schedule-grid" id="scheduleGrid">
+                    <!-- برنامه توسط JS پر می‌شود -->
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+    <script src="js/toast.js"></script>
+
+    <!-- ۳. توابع اصلی اپلیکیشن -->
+
+    <!-- ۴. نوار ناوبری -->
+    <script src="js/layout.js"></script>
+
+    <!-- ۵. تم -->
+<script>
+        // =========================================================
+        // API-BASED SCHEDULE
+        // =========================================================
+        var scheduleData = [];
+        var currentDay = 'all';
+        var currentHall = 'all';
+        var currentType = 'all';
+        var currentEventId = new URLSearchParams(location.search).get('event_id') || '';
+        var API_BASE = 'backend/api';
+
+        function esc(v) {
+            return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        function dateLabel(iso) {
+            if (!iso) return 'بدون تاریخ';
+            var parts = iso.split('-');
+            if (parts.length !== 3) return iso;
+            return iso;
+        }
+
+        function apiUrl(path, params) {
+            var url = API_BASE + '/' + path;
+            if (params) {
+                var q = Object.keys(params).filter(function(k){ return params[k] !== '' && params[k] != null; }).map(function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); });
+                if (q.length) url += '?' + q.join('&');
+            }
+            return url;
+        }
+
+        async function loadSchedule() {
+            var res = await fetch(apiUrl('schedules.php', currentEventId ? {event_id: currentEventId} : {}), {credentials:'same-origin'});
+            var data = await res.json();
+            if (!res.ok || !data.ok) throw new Error(data.message || 'خطا در دریافت برنامه');
+            scheduleData = data.schedule || [];
+
+            if (data.event) {
+                var start = data.event.start_date || '';
+                var end = data.event.end_date || '';
+                var dateText = start ? (end && end !== start ? start + ' تا ' + end : start) : 'تعریف نشده';
+                var loc = data.event.location || 'تعریف نشده';
+                var st = data.event.start_time || '';
+                var et = data.event.end_time || '';
+                var time = (st || et) ? st + (st && et ? ' - ' : '') + et : 'تعریف نشده';
+                var cards = document.querySelectorAll('.schedule-info .info-card strong');
+                if (cards[0]) cards[0].textContent = dateText;
+                if (cards[1]) cards[1].textContent = loc;
+                if (cards[2]) cards[2].textContent = time;
+                if (cards[3]) cards[3].textContent = String(scheduleData.length) + ' برنامه';
+                var title = document.querySelector('.page-header h1');
+                if (title && data.event.title) title.textContent = '📅 ' + data.event.title + ' — زمان‌بندی';
+            }
+
+            hydrateFilters();
+            renderSchedule();
+        }
+
+        function hydrateFilters() {
+            var hallSelect = document.getElementById('hallFilter');
+            var typeSelect = document.getElementById('typeFilter');
+            var halls = [...new Set(scheduleData.map(function(x){return x.hall;}).filter(Boolean))];
+            var types = [...new Set(scheduleData.map(function(x){return x.type;}).filter(Boolean))];
+            hallSelect.innerHTML = '<option value="all">همه سالن‌ها</option>' + halls.map(function(h){ return '<option value="' + esc(h) + '">' + esc(h) + '</option>'; }).join('');
+            typeSelect.innerHTML = '<option value="all">همه انواع</option>' + types.map(function(t){ return '<option value="' + esc(t) + '">' + esc(getTypeLabel(t)) + '</option>'; }).join('');
+            var daySelect = document.getElementById('dayFilter');
+            var dates = [...new Set(scheduleData.map(function(x){return x.date;}).filter(Boolean))];
+            daySelect.innerHTML = '<option value="all">همه روزها</option>' + dates.map(function(d){ return '<option value="' + esc(d) + '">' + esc(dateLabel(d)) + '</option>'; }).join('');
+            var tabBox = document.querySelector('.schedule-tabs');
+            tabBox.innerHTML = '<button class="tab-btn active" data-day="all" onclick="switchTab(\'all\')"><i class="fas fa-calendar-week"></i> همه روزها</button>' +
+                dates.map(function(d, i){ return '<button class="tab-btn" data-day="' + esc(d) + '" onclick="switchTab(\'' + String(d).replace(/'/g,"\\'") + '\')"><i class="fas fa-calendar-day"></i> ' + esc(dateLabel(d)) + '</button>'; }).join('');
+        }
+
+        function renderSchedule() {
+            var grid = document.getElementById('scheduleGrid');
+            var filtered = scheduleData.filter(function(item) {
+                var matchDay = currentDay === 'all' || item.date === currentDay;
+                var matchHall = currentHall === 'all' || item.hall === currentHall;
+                var matchType = currentType === 'all' || item.type === currentType;
+                return matchDay && matchHall && matchType;
+            });
+
+            if (!filtered.length) {
+                grid.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-xmark"></i><p>هیچ برنامه‌ای با این فیلترها یافت نشد</p><span class="empty-hint">لطفاً فیلترهای جستجو را تغییر دهید</span></div>';
+                return;
+            }
+
+            var html = '';
+            var currentGroup = '';
+            filtered.forEach(function(item) {
+                var group = item.date || 'بدون تاریخ';
+                if (group !== currentGroup) {
+                    currentGroup = group;
+                    html += '<div class="day-divider"><span>' + esc(dateLabel(group)) + '</span></div>';
+                }
+                var icons = {keynote:'fa-star',speech:'fa-microphone',panel:'fa-users',workshop:'fa-tools',break:'fa-coffee'};
+                var icon = icons[item.type] || 'fa-clock';
+                var typeClass = item.type ? 'type-' + item.type : '';
+                html += '<div class="schedule-item ' + typeClass + '">' +
+                    '<div class="schedule-time"><span>' + esc(item.time || '') + '</span></div>' +
+                    '<div class="schedule-content"><div class="schedule-header"><div class="schedule-title"><i class="fas ' + icon + '"></i><h3>' + esc(item.title) + '</h3></div>' +
+                    '<span class="schedule-type ' + typeClass + '">' + esc(getTypeLabel(item.type)) + '</span></div>' +
+                    (item.speaker ? '<div class="schedule-speaker"><i class="fas fa-user"></i><span>' + esc(item.speaker) + '</span></div>' : '') +
+                    '<div class="schedule-meta"><span class="schedule-hall"><i class="fas fa-map-pin"></i>' + esc(item.hall || 'بدون سالن') + '</span></div>' +
+                    (item.description ? '<p class="schedule-description">' + esc(item.description) + '</p>' : '') +
+                    '</div></div>';
+            });
+            grid.innerHTML = html;
+            updateActiveTab(currentDay);
+        }
+
+        function getTypeLabel(type) {
+            var labels = {keynote:'سخنرانی کلیدی',speech:'سخنرانی',panel:'پنل',workshop:'کارگاه',break:'استراحت'};
+            return labels[type] || (type || 'برنامه');
+        }
+
+        window.filterSchedule = function() {
+            currentDay = document.getElementById('dayFilter').value;
+            currentHall = document.getElementById('hallFilter').value;
+            currentType = document.getElementById('typeFilter').value;
+            renderSchedule();
+        };
+
+        window.resetFilters = function() {
+            currentDay = currentHall = currentType = 'all';
+            document.getElementById('dayFilter').value = 'all';
+            document.getElementById('hallFilter').value = 'all';
+            document.getElementById('typeFilter').value = 'all';
+            renderSchedule();
+        };
+
+        window.switchTab = function(day) {
+            currentDay = day;
+            document.getElementById('dayFilter').value = day;
+            renderSchedule();
+        };
+
+        function updateActiveTab(day) {
+            document.querySelectorAll('.tab-btn').forEach(function(btn){ btn.classList.toggle('active', btn.getAttribute('data-day') === day); });
+        }
+
+        window.downloadSchedule = function() {
+            window.print();
+        };
+
+        loadSchedule().catch(function(err){
+            console.error(err);
+            document.getElementById('scheduleGrid').innerHTML = '<div class="empty-state"><i class="fas fa-triangle-exclamation"></i><p>دریافت برنامه از سرور انجام نشد</p><span class="empty-hint">اطمینان حاصل کنید PHP و MySQL اجرا هستند.</span></div>';
+        });
+    </script>
+
+</body>
+</html>

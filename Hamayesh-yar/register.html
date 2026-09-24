@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ثبت‌نام | همایش یار</title>
+
+    <!-- ================= CSS ================= --><!-- Font Awesome -->
+
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+        </head>
+
+<body>
+
+       <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="register-page">
+
+        <div class="register-card">
+
+            <!-- Icon -->
+
+            <div class="register-icon">
+
+                <i class="fas fa-user-plus"></i>
+
+            </div>
+
+            <!-- Title -->
+
+            <h2>
+                ایجاد حساب کاربری
+            </h2>
+
+            <p class="register-subtitle">
+
+                برای استفاده از امکانات همایش یار ثبت‌نام کنید
+
+            </p>
+
+            <!-- ================= FORM ================= -->
+
+            <form id="registerForm">
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label for="fullname">
+
+                        <i class="fas fa-user"></i>
+
+                        نام و نام خانوادگی
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="fullname"
+                            placeholder="نام و نام خانوادگی خود را وارد کنید"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+
+                        <i class="fas fa-envelope"></i>
+
+                        ایمیل
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="example@email.com"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Phone -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+
+                        <i class="fas fa-phone"></i>
+
+                        شماره تماس
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-phone"></i>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="09123456789"
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Role -->
+
+                <div class="form-group">
+
+                    <label for="role">
+
+                        <i class="fas fa-user-tag"></i>
+
+                        نقش کاربری
+
+                    </label>
+
+                    <div class="input-wrapper select-wrapper">
+
+                        <i class="fas fa-user-tag"></i>
+
+                        <select id="role" disabled>
+                        <option value="author" selected>نویسنده</option>
+                    </select>
+
+                    </div>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+
+                        <i class="fas fa-lock"></i>
+
+                        رمز عبور
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="رمز عبور خود را وارد کنید"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="confirm_password">
+
+                        <i class="fas fa-lock"></i>
+
+                        تکرار رمز عبور
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            placeholder="رمز عبور را دوباره وارد کنید"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Register Button -->
+
+                <button
+                    type="submit"
+                    class="register-btn"
+                >
+
+                    <i class="fas fa-user-plus"></i>
+
+                    ایجاد حساب کاربری
+
+                </button>
+
+            </form>
+
+            <!-- ================= LOGIN LINK ================= -->
+
+            <p class="login-text">
+
+                قبلاً ثبت‌نام کرده‌اید؟
+
+                <a href="login.html">
+
+                    ورود به حساب
+
+                </a>
+
+            </p>
+
+            <!-- ================= INFO ================= -->
+
+            <div class="register-info">
+
+                <div class="info-title">
+
+                    <i class="fas fa-circle-info"></i>
+
+                    توجه
+
+                </div>
+
+                <p>
+
+                    ثبت‌نام دبیرخانه توسط مدیر سیستم انجام می‌شود.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ================= FOOTER ================= -->
+
+    <!-- ================= JS ================= -->
+<script src="js/toast.js"></script>
+<script src="js/app.js"></script>
+<script src="js/layout.js"></script>
+
+   
+
+    <script>
+
+        // ساخت Navbar
+
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            var fullname = document.getElementById('fullname').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var role = document.getElementById('role').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm_password').value;
+
+            if (!fullname || !email || !password) {
+                showToast('لطفاً تمام فیلدهای اجباری را پر کنید', 'error');
+                return;
+            }
+            if (password !== confirmPassword) {
+                showToast('رمز عبور و تکرار آن مطابقت ندارند', 'error');
+                return;
+            }
+            if (password.length < 6) {
+                showToast('رمز عبور باید حداقل ۶ کاراکتر باشد', 'error');
+                return;
+            }
+
+            var registerBtn = document.querySelector('#registerForm .register-btn');
+            if (registerBtn) registerBtn.disabled = true;
+
+            try {
+                var result = await registerUser({
+                    name: fullname,
+                    email: email,
+                    phone: phone,
+                    role: 'author',
+                    password: password
+                });
+
+                if (!result.ok) {
+                    showToast(result.message || 'ثبت‌نام انجام نشد.', 'error');
+                    return;
+                }
+
+                showToast('ثبت‌نام با موفقیت انجام شد! اکنون می‌توانید وارد شوید.', 'success');
+                setTimeout(function () { window.location.replace('login.html'); }, 700);
+            } finally {
+                if (registerBtn) registerBtn.disabled = false;
+            }
+        });
+</script>
+
+</body>
+
+</html>

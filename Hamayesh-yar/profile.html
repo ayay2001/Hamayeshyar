@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="پروفایل کاربر | سامانه مدیریت همایش همایش یار">
+    <title>پروفایل کاربر | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        </head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+    
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             PAGE HEADER
+        =================================================== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <div>
+                        <span class="page-badge">
+                            <i class="fas fa-user-circle"></i>
+                            پروفایل
+                        </span>
+                        <h1>👤 پروفایل کاربری</h1>
+                        <p>اطلاعات شخصی خود را مدیریت کنید و فعالیت‌های خود را مشاهده نمایید.</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <button class="btn btn-outline btn-sm" onclick="window.print()">
+                            <i class="fas fa-print"></i>
+                            چاپ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             PROFILE CARD
+        =================================================== -->
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-grid">
+
+                    <!-- ===== سمت راست: اطلاعات ===== -->
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img id="avatar" src="https://via.placeholder.com/150" alt="آواتار">
+                            <div class="avatar-upload">
+                                <label for="avatarInput" class="avatar-upload-btn">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" id="avatarInput" accept="image/*">
+                            </div>
+                        </div>
+
+                        <div class="profile-name">
+                            <h2 id="profileDisplayName">کاربر</h2>
+                            <span class="profile-role" id="profileRole">نویسنده</span>
+                        </div>
+
+                        <div class="profile-actions">
+                            <button class="btn btn-primary" onclick="saveProfile()">
+                                <i class="fas fa-save"></i>
+                                ذخیره تغییرات
+                            </button>
+                            <button class="btn btn-outline" onclick="logoutUser(event)">
+                                <i class="fas fa-sign-out-alt"></i>
+                                خروج
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ===== سمت چپ: فرم ===== -->
+                    <div class="profile-form-card">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-left">
+                                    <i class="fas fa-edit"></i>
+                                    <h3>ویرایش اطلاعات</h3>
+                                </div>
+                                <span class="badge badge-primary" id="profileStatus">فعال</span>
+                            </div>
+
+                            <form id="profileForm" class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="name">
+                                            <i class="fas fa-user"></i>
+                                            نام کامل
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-user"></i>
+                                            <input type="text" id="name" placeholder="نام و نام خانوادگی" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">
+                                            <i class="fas fa-envelope"></i>
+                                            ایمیل
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-envelope"></i>
+                                            <input type="email" id="email" placeholder="example@email.com" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="phone">
+                                            <i class="fas fa-phone"></i>
+                                            شماره تماس
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-phone"></i>
+                                            <input type="tel" id="phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="organization">
+                                            <i class="fas fa-building"></i>
+                                            سازمان / دانشگاه
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-building"></i>
+                                            <input type="text" id="organization" placeholder="نام سازمان یا دانشگاه">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="role">
+                                            <i class="fas fa-user-tag"></i>
+                                            نقش کاربری
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-user-tag"></i>
+                                            <input type="text" id="role" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userId">
+                                            <i class="fas fa-id-card"></i>
+                                            شناسه کاربر
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-id-card"></i>
+                                            <input type="text" id="userId" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bio">
+                                        <i class="fas fa-align-left"></i>
+                                        بیوگرافی
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-align-left" style="top: 18px; transform: none;"></i>
+                                        <textarea id="bio" rows="3" placeholder="درباره خودتان بنویسید..."></textarea>
+                                    </div>
+                                    <div class="char-counter">
+                                        <span id="bioCount">۰</span> / ۲۰۰ کاراکتر
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-large">
+                                        <i class="fas fa-save"></i>
+                                        ذخیره تغییرات
+                                    </button>
+                                    <button type="reset" class="btn btn-outline btn-large">
+                                        <i class="fas fa-undo"></i>
+                                        بازنشانی
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             STATS & HISTORY
+        =================================================== -->
+        <section class="profile-stats-section">
+            <div class="container">
+
+                <!-- ===== آمار ===== -->
+                <div class="section-heading">
+                    <span>آمار</span>
+                    <h2>📊 آمار فعالیت</h2>
+                    <p>خلاصه فعالیت‌های شما در سامانه</p>
+                </div>
+
+                <div class="stats-grid" id="profileStats">
+                    <div class="stat-box">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <h2 id="totalArticles">0</h2>
+                        <span>کل مقالات</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <h2 id="acceptedCount">0</h2>
+                        <span>پذیرفته شده</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-times-circle"></i>
+                        <h2 id="rejectedCount">0</h2>
+                        <span>رد شده</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-clock"></i>
+                        <h2 id="pendingCount">0</h2>
+                        <span>در انتظار</span>
+                    </div>
+                </div>
+
+                <!-- ===== تاریخچه ===== -->
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <i class="fas fa-history"></i>
+                            <h3>📜 آخرین فعالیت‌ها</h3>
+                        </div>
+                        <span class="badge badge-primary" id="historyCount">۰ فعالیت</span>
+                    </div>
+                    <div id="historyList">
+                        <!-- تاریخچه توسط JS پر می‌شود -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+    <script src="js/toast.js"></script>
+
+    <!-- ۳. توابع اصلی اپلیکیشن -->
+    <script src="js/app.js"></script>
+
+    <!-- ۴. نوار ناوبری -->
+    <script src="js/layout.js"></script>
+
+    <!-- ۵. تم -->
+<!-- ۶. فرم‌ها -->
+    
+    <script>
+        // =========================================================
+        // GET USER
+        // =========================================================
+        function getUserData() {
+            var user = localStorage.getItem('user');
+            if (user) {
+                try {
+                    return JSON.parse(user);
+                } catch (e) {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        function saveUserData(user) {
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+
+        // =========================================================
+        // DATA
+        // =========================================================
+        // داده‌ها از data.js خوانده می‌شود
+        var currentUser = getUserData();
+
+        if (!currentUser) {
+            // اگر کاربر لاگین نیست، به صفحه لاگین برو
+            showToast('لطفاً ابتدا وارد حساب کاربری خود شوید.', 'error');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // =========================================================
+        // LOAD PROFILE
+        // =========================================================
+        function loadProfile() {
+            // آواتار
+            if (currentUser.avatar) {
+                document.getElementById('avatar').src = currentUser.avatar;
+            }
+
+            // نام نمایشی
+            document.getElementById('profileDisplayName').textContent = currentUser.name;
+            document.getElementById('userName').textContent = currentUser.name;
+
+            // نقش
+            var roleText = {
+                'author': 'نویسنده',
+                'reviewer': 'داور',
+                'secretariat': 'دبیرخانه'
+            }[currentUser.role] || currentUser.role;
+
+            document.getElementById('profileRole').textContent = roleText;
+
+            // فرم
+            document.getElementById('name').value = currentUser.name || '';
+            document.getElementById('email').value = currentUser.email || '';
+            document.getElementById('phone').value = currentUser.phone || '';
+            document.getElementById('organization').value = currentUser.organization || '';
+            document.getElementById('role').value = roleText;
+            document.getElementById('userId').value = currentUser.id;
+            document.getElementById('bio').value = currentUser.bio || '';
+
+            // شمارنده بیو
+            document.getElementById('bioCount').textContent = (currentUser.bio || '').length;
+
+            // آمار
+            loadStats();
+        }
+
+        // =========================================================
+        // STATS
+        // =========================================================
+        function loadStats() {
+            var userArticles = window.articlesData.filter(function(a) {
+                return a.authorId === currentUser.id;
+            });
+
+            var total = userArticles.length;
+            var accepted = userArticles.filter(function(a) {
+                return a.finalDecision === 'accept';
+            }).length;
+            var rejected = userArticles.filter(function(a) {
+                return a.finalDecision === 'reject';
+            }).length;
+            var pending = userArticles.filter(function(a) {
+                return !a.finalDecision || a.status === 'pending';
+            }).length;
+
+            document.getElementById('totalArticles').textContent = total;
+            document.getElementById('acceptedCount').textContent = accepted;
+            document.getElementById('rejectedCount').textContent = rejected;
+            document.getElementById('pendingCount').textContent = pending;
+
+            // تاریخچه
+            loadHistory(userArticles);
+        }
+
+        // =========================================================
+        // HISTORY
+        // =========================================================
+        function loadHistory(articles) {
+            var container = document.getElementById('historyList');
+            var history = articles.slice(-5).reverse();
+
+            document.getElementById('historyCount').textContent = history.length + ' فعالیت';
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding: 30px 20px;">
+                        <i class="fas fa-inbox"></i>
+                        <p>هیچ فعالیتی ثبت نشده است</p>
+                    </div>
+                `;
+                return;
+            }
+
+            var html = '';
+            for (var i = 0; i < history.length; i++) {
+                var item = history[i];
+                var statusText = {
+                    'accepted': 'پذیرفته شده ✅',
+                    'rejected': 'رد شده ❌',
+                    'revision': 'نیاز به اصلاح ✏️',
+                    'pending': 'در انتظار ⏳',
+                    'reviewing': 'در حال داوری 🔄'
+                }[item.status] || item.status;
+
+                var statusClass = {
+                    'accepted': 'history-success',
+                    'rejected': 'history-danger',
+                    'revision': 'history-warning',
+                    'pending': 'history-pending',
+                    'reviewing': 'history-reviewing'
+                }[item.status] || '';
+
+                html += `
+                    <div class="history-item ${statusClass}">
+                        <div class="history-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="history-content">
+                            <div class="history-title">${item.title}</div>
+                            <div class="history-meta">
+                                <span class="history-date"><i class="fas fa-calendar-alt"></i> ${item.submitDate || 'نامشخص'}</span>
+                                <span class="history-status">${statusText}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // =========================================================
+        // AVATAR UPLOAD
+        // =========================================================
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (!file) return;
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                var avatarImg = document.getElementById('avatar');
+                avatarImg.src = reader.result;
+                currentUser.avatar = reader.result;
+                saveUserData(currentUser);
+                showToast('آواتار با موفقیت به‌روزرسانی شد!', 'success');
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // =========================================================
+        // SAVE PROFILE
+        // =========================================================
+        window.saveProfile = function() {
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var organization = document.getElementById('organization').value.trim();
+            var bio = document.getElementById('bio').value.trim();
+
+            if (!name || !email) {
+                showToast('لطفاً نام و ایمیل را وارد کنید.', 'error');
+                return;
+            }
+
+            if (!email.includes('@')) {
+                showToast('لطفاً یک ایمیل معتبر وارد کنید.', 'error');
+                return;
+            }
+
+            currentUser.name = name;
+            currentUser.email = email;
+            currentUser.phone = phone;
+            currentUser.organization = organization;
+            currentUser.bio = bio;
+
+            saveUserData(currentUser);
+
+            // به‌روزرسانی نمایش
+            document.getElementById('profileDisplayName').textContent = name;
+            document.getElementById('userName').textContent = name;
+
+            showToast('پروفایل با موفقیت ذخیره شد!', 'success');
+        };
+
+        // =========================================================
+        // LOGOUT
+        // =========================================================
+        window.logoutUser = function(e) {
+            if (e) e.preventDefault();
+            if (confirm('آیا از خروج از حساب کاربری اطمینان دارید؟')) {
+                localStorage.removeItem('user');
+                showToast('از حساب خود خارج شدید.', 'info');
+                window.location.href = 'login.html';
+            }
+        };
+
+        // =========================================================
+        // BIO COUNTER
+        // =========================================================
+        document.getElementById('bio').addEventListener('input', function() {
+            var count = this.value.length;
+            document.getElementById('bioCount').textContent = count;
+            if (count > 200) {
+                this.value = this.value.substring(0, 200);
+                document.getElementById('bioCount').textContent = '۲۰۰';
+            }
+        });
+
+        // =========================================================
+        // FORM SUBMIT
+        // =========================================================
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveProfile();
+        });
+
+        // =========================================================
+        // =========================================================
+
+        // =========================================================
+        // INIT
+        // =========================================================
+        loadProfile();
+    </script>
+
+</body>
+</html>

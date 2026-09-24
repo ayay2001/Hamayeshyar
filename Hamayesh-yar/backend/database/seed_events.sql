@@ -1,0 +1,9 @@
+USE hamayesh_yar;
+
+INSERT INTO events (id,title,category,status,start_date,end_date,start_time,end_time,duration,location,address,organizer,description,long_description,image,price,capacity,submission_deadline)
+VALUES
+(1,'همایش فناوری اطلاعات و ارتباطات','فناوری','upcoming','2026-09-11','2026-09-11','09:00:00','17:00:00','۸ ساعت','سالن همایش دانشکده','دانشکده فنی و مهندسی، سالن همایش','دانشکده مهندسی کامپیوتر','همایش یک روزه با حضور متخصصان برتر حوزه فناوری اطلاعات','همایش فناوری اطلاعات و ارتباطات با هدف ایجاد بستری برای تبادل نظر و ارائه آخرین دستاوردهای حوزه فناوری.','images/event-1.jpg',0,300,'2026-09-01'),
+(2,'کنفرانس ملی مهندسی و نوآوری','مهندسی','upcoming','2026-09-27','2026-09-28','08:30:00','18:00:00','۲ روز','سالن اجتماعات دانشکده',NULL,'دانشکده مهندسی','کنفرانس دو روزه با محوریت نوآوری در مهندسی و فناوری',NULL,'images/event-2.jpg',150000,500,'2026-09-16'),
+(3,'نشست علمی پژوهش و توسعه','علمی','ongoing','2026-10-10','2026-10-10','10:00:00','16:00:00','۶ ساعت','مرکز همایش‌های دانشگاه',NULL,'معاونت پژوهشی','نشست تخصصی با محوریت پژوهش و توسعه در علوم پایه',NULL,'images/event-3.jpg',0,200,'2026-10-02'),
+(4,'کنگره بین‌المللی پزشکی نوین','پزشکی','upcoming','2026-11-06','2026-11-08','08:00:00','20:00:00','۳ روز','سالن همایش‌های بین‌المللی',NULL,'دانشگاه علوم پزشکی','کنگره سه روزه با حضور پزشکان و پژوهشگران بین‌المللی',NULL,'images/event-4.jpg',250000,800,'2026-10-27')
+ON DUPLICATE KEY UPDATE title=VALUES(title), category=VALUES(category), status=VALUES(status), start_date=VALUES(start_date), end_date=VALUES(end_date), start_time=VALUES(start_time), end_time=VALUES(end_time), duration=VALUES(duration), location=VALUES(location), organizer=VALUES(organizer), description=VALUES(description), image=VALUES(image), price=VALUES(price), capacity=VALUES(capacity), submission_deadline=VALUES(submission_deadline);

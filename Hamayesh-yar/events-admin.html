@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مدیریت همایش‌ها | همایش یار</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/ui-final.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<header class="main-header"><div id="navbar-placeholder"></div></header>
+<main>
+<section class="page-header"><div class="container"><div class="page-header-content"><div><span class="page-badge"><i class="fas fa-calendar-days"></i> مدیریت همایش‌ها</span><h1>مدیریت همایش‌ها</h1><p>ایجاد، ویرایش، انتشار و کنترل ددلاین همایش‌ها از یک پنل مرکزی.</p></div><div><a href="events.html" class="btn btn-secondary"><i class="fas fa-eye"></i> مشاهده عمومی</a> <a href="registrations-admin.html" class="btn btn-primary"><i class="fas fa-users"></i> ثبت‌نام‌ها</a></div></div></div></section>
+<section class="table-section"><div class="container">
+<div class="card" style="margin-bottom:1.5rem;">
+  <div class="card-header"><div class="card-header-left"><i class="fas fa-plus-circle"></i><h3 id="formTitle">ایجاد همایش جدید</h3></div></div>
+  <form id="eventForm" class="author-form" style="padding:1.25rem;">
+    <input type="hidden" id="eventDbId">
+    <div class="form-row"><div class="form-group"><label>عنوان <span class="required">*</span></label><input id="title" required></div><div class="form-group"><label>دسته‌بندی</label><input id="category"></div></div>
+    <div class="form-row"><div class="form-group"><label>وضعیت</label><select id="status"><option value="draft">پیش‌نویس</option><option value="upcoming">پیش‌رو</option><option value="ongoing">در حال برگزاری</option><option value="finished">پایان یافته</option><option value="cancelled">لغو شده</option></select></div><div class="form-group"><label>برگزارکننده</label><input id="organizer"></div></div>
+    <div class="form-row"><div class="form-group"><label>تاریخ شروع</label><input type="date" id="start_date"></div><div class="form-group"><label>تاریخ پایان</label><input type="date" id="end_date"></div></div>
+    <div class="form-row"><div class="form-group"><label>ساعت شروع</label><input type="time" id="start_time"></div><div class="form-group"><label>ساعت پایان</label><input type="time" id="end_time"></div></div>
+    <div class="form-row"><div class="form-group"><label>ددلاین ارسال مقاله</label><input type="date" id="submission_deadline"></div><div class="form-group"><label>ظرفیت</label><input type="number" min="0" id="capacity"></div></div>
+    <div class="form-row"><div class="form-group"><label>محل</label><input id="location"></div><div class="form-group"><label>هزینه (تومان)</label><input type="number" min="0" id="price" value="0"></div></div>
+    <div class="form-group"><label>آدرس</label><input id="address"></div>
+    <div class="form-group"><label>تصویر (مسیر نسبی)</label><input id="image" placeholder="images/event-1.jpg"></div>
+    <div class="form-group"><label>توضیح کوتاه</label><textarea id="description" rows="3"></textarea></div>
+    <div class="form-group"><label>توضیح کامل</label><textarea id="long_description" rows="5"></textarea></div>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;"><button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> ذخیره</button><button class="btn btn-secondary" type="button" id="cancelEdit" style="display:none;">لغو ویرایش</button></div>
+  </form>
+</div>
+<div class="card"><div class="card-header"><div class="card-header-left"><i class="fas fa-list"></i><h3>همایش‌های ثبت‌شده</h3></div><span class="badge badge-primary" id="eventCount">۰ همایش</span></div><div class="table-responsive"><table class="table table-striped"><thead><tr><th>#</th><th>عنوان</th><th>دسته</th><th>تاریخ</th><th>وضعیت</th><th>مقالات</th><th>ثبت‌نام</th><th>عملیات</th></tr></thead><tbody id="eventList"><tr><td colspan="8" style="text-align:center;">در حال بارگذاری...</td></tr></tbody></table></div></div>
+</div></section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script><script src="js/toast.js"></script><script src="js/app.js"></script><script src="js/layout.js"></script>
+<script>
+(function(){
+  'use strict';
+  if (!window.requireRole || !window.getUser()) return;
+  var form=document.getElementById('eventForm'), list=document.getElementById('eventList'), idField=document.getElementById('eventDbId');
+  var fields=['title','category','status','start_date','end_date','start_time','end_time','submission_deadline','capacity','location','price','address','organizer','image','description','long_description'];
+  function el(id){return document.getElementById(id);}
+  function resetForm(){ form.reset(); idField.value=''; el('price').value='0'; el('status').value='draft'; el('formTitle').textContent='ایجاد همایش جدید'; el('cancelEdit').style.display='none'; }
+  function fill(e){ fields.forEach(function(k){ if(el(k)) el(k).value=(e[k] == null ? '' : e[k]); }); idField.value=e.id; el('formTitle').textContent='ویرایش: '+e.title; el('cancelEdit').style.display='inline-flex'; window.scrollTo({top:0,behavior:'smooth'}); }
+  function statusText(s){return ({draft:'پیش‌نویس',upcoming:'پیش‌رو',ongoing:'در حال برگزاری',finished:'پایان یافته',cancelled:'لغو شده'})[s]||s;}
+  function render(events){el('eventCount').textContent=events.length+' همایش'; if(!events.length){list.innerHTML='<tr><td colspan="8" style="text-align:center;">همایشی ثبت نشده است.</td></tr>';return;} list.innerHTML=events.map(function(e,i){return '<tr><td>'+(i+1)+'</td><td><strong>'+e.title+'</strong></td><td>'+(e.category||'—')+'</td><td>'+(e.start_date||'—')+(e.end_date&&e.end_date!==e.start_date?' تا '+e.end_date:'')+'</td><td>'+statusText(e.status_db||e.status)+'</td><td>'+e.papers+'</td><td>'+e.participants+'</td><td><div style="display:flex;gap:.35rem;flex-wrap:wrap;"><button class="btn btn-primary btn-sm" data-edit="'+e.id+'"><i class="fas fa-pen"></i></button><button class="btn btn-danger btn-sm" data-delete="'+e.id+'"><i class="fas fa-trash"></i></button></div></td></tr>';}).join(''); }
+  async function load(){var r=await apiRequest('events.php?admin=1',{method:'GET'}); if(!r.ok){showToast(r.message||'دریافت همایش‌ها انجام نشد.','error');return;} window.adminEvents=r.events||[]; render(window.adminEvents);}
+  form.addEventListener('submit',async function(ev){ev.preventDefault(); var payload={}; fields.forEach(function(k){payload[k]=el(k).value;}); var id=idField.value; var r=await apiRequest('events.php',{method:id?'PATCH':'POST',body:JSON.stringify(id?Object.assign({id:Number(id)},payload):payload)}); if(!r.ok){showToast(r.message||'ذخیره انجام نشد.','error');return;} showToast(r.message,'success'); resetForm(); await load();});
+  el('cancelEdit').addEventListener('click',resetForm);
+  list.addEventListener('click',async function(ev){var btn=ev.target.closest('button'); if(!btn)return; var id=Number(btn.dataset.edit||btn.dataset.delete); var item=(window.adminEvents||[]).find(function(e){return Number(e.id)===id;}); if(!item)return; if(btn.dataset.edit){fill(item);return;} if(!confirm('این همایش حذف شود؟'))return; var r=await apiRequest('events.php',{method:'DELETE',body:JSON.stringify({id:id})}); if(!r.ok){showToast(r.message||'حذف انجام نشد.','error');return;} showToast(r.message,'success'); await load();});
+  load();
+})();
+</script>
+</body></html>

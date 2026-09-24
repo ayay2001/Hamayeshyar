@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="گزارش‌ها و آمار همایش | همایش یار">
+    <title>گزارش‌ها | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Chart.js برای رسم نمودار (اختیاری، اما خوبه) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             PAGE HEADER
+        =================================================== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <div>
+                        <span class="page-badge">
+                            <i class="fas fa-chart-pie"></i>
+                            گزارش‌ها
+                        </span>
+                        <h1>📊 گزارش‌های آماری</h1>
+                        <p>مشاهده آمار کلی مقالات، وضعیت داوری و عملکرد سامانه</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <button class="btn btn-primary btn-sm" onclick="window.print()">
+                            <i class="fas fa-print"></i>
+                            چاپ
+                        </button>
+                        <button class="btn btn-success btn-sm" onclick="exportReport()">
+                            <i class="fas fa-download"></i>
+                            دانلود PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             STATS OVERVIEW
+        =================================================== -->
+        <section class="stats-section">
+            <div class="container">
+                <div style="margin-bottom:18px"><label for="reportEventFilter">فیلتر همایش:</label><select id="reportEventFilter" class="form-control" style="max-width:360px;margin-top:8px"></select></div>
+
+                <div class="stats-grid" id="reportStats">
+                    <div class="stat-box">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <h2 id="totalArticles">0</h2>
+                        <span>کل مقالات</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <h2 id="acceptedCount">0</h2>
+                        <span>پذیرفته شده</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-times-circle"></i>
+                        <h2 id="rejectedCount">0</h2>
+                        <span>رد شده</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-clock"></i>
+                        <h2 id="pendingCount">0</h2>
+                        <span>در انتظار تصمیم</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             CHARTS SECTION
+        =================================================== -->
+        <section class="charts-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>نمودارها</span>
+                    <h2>نمایش گرافیکی آمار</h2>
+                    <p>نمودارهای زیر وضعیت مقالات را به صورت بصری نمایش می‌دهند.</p>
+                </div>
+
+                <div class="charts-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <!-- نمودار وضعیت مقالات -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>وضعیت مقالات</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- نمودار تصمیمات نهایی -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>تصمیمات نهایی</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="decisionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             DETAILED TABLE
+        =================================================== -->
+        <section class="table-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>جزئیات</span>
+                    <h2>لیست کامل مقالات</h2>
+                    <p>مشاهده همه مقالات به همراه وضعیت و تصمیم نهایی</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <i class="fas fa-list-ul"></i>
+                            <h3>همه مقالات</h3>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="badge badge-primary" id="reportArticleCount">۰ مقاله</span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="reportArticlesTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>عنوان</th>
+                                    <th>نویسنده</th>
+                                    <th>وضعیت</th>
+                                    <th>تصمیم نهایی</th>
+                                    <th>تاریخ ارسال</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportArticlesList">
+                                <!-- توسط JS پر می‌شود -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+   
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+    <script src="js/toast.js"></script>
+
+    <!-- ۳. نوار ناوبری -->
+    <script src="js/app.js"></script>
+    <script src="js/layout.js"></script>
+
+    <!-- ۴. تم -->
+<script>
+    let statusChart=null, decisionChart=null;
+    const num = v => Number(v || 0);
+
+    async function ensureAuth(){
+        const r=await fetch('backend/api/auth/me.php',{credentials:'same-origin'});
+        const d=await r.json();
+        if(!d.ok || !d.user || !['secretariat','admin'].includes(d.user.role)){ location.href='login.html'; throw new Error('unauthorized'); }
+    }
+
+    function statusBadge(status){
+        const map={pending:['در انتظار','status-pending'],reviewing:['در حال داوری','status-reviewing'],revision:['نیازمند اصلاح','status-info'],reviewed:['داوری شده','status-info'],accepted:['پذیرفته شده','status-success'],rejected:['رد شده','status-danger']};
+        const x=map[status]||['نامشخص','status-pending'];
+        return `<span class="status-badge ${x[1]}">${x[0]}</span>`;
+    }
+    function decisionBadge(d){
+        if(d==='accept') return '<span class="decision-badge decision-accept">پذیرش</span>';
+        if(d==='reject') return '<span class="decision-badge decision-reject">رد</span>';
+        if(d==='revision') return '<span class="decision-badge decision-revision">بازنگری</span>';
+        return '<span class="decision-badge decision-pending">—</span>';
+    }
+
+    function drawCharts(a){
+        const pending=num(a.pending), reviewing=num(a.reviewing), reviewed=num(a.reviewed), accepted=num(a.accepted), rejected=num(a.rejected), revision=num(a.revision);
+        if(statusChart) statusChart.destroy();
+        if(decisionChart) decisionChart.destroy();
+        statusChart=new Chart(document.getElementById('statusChart').getContext('2d'),{type:'doughnut',data:{labels:['در انتظار','در حال داوری','داوری شده','پذیرفته شده','رد شده'],datasets:[{data:[pending,reviewing,reviewed,accepted,rejected],backgroundColor:['#f59e0b','#3b82f6','#8b5cf6','#22c55e','#ef4444']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+        decisionChart=new Chart(document.getElementById('decisionChart').getContext('2d'),{type:'bar',data:{labels:['پذیرش','رد','بازنگری','بدون تصمیم'],datasets:[{label:'تعداد مقالات',data:[accepted,rejected,revision,pending],backgroundColor:['#22c55e','#ef4444','#f59e0b','#94a3b8']}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+    }
+
+    function renderReport(d){
+        const a=d.articles||{}, r=d.registrations||{}, s=d.survey||{};
+        document.getElementById('totalArticles').textContent=num(a.total);
+        document.getElementById('acceptedCount').textContent=num(a.accepted);
+        document.getElementById('rejectedCount').textContent=num(a.rejected);
+        document.getElementById('pendingCount').textContent=num(a.pending);
+        document.getElementById('reportArticleCount').textContent=num(a.total)+' مقاله';
+
+        const tbody=document.getElementById('reportArticlesList');
+        const list=d.article_list||[];
+        tbody.innerHTML=list.length?list.map((x,i)=>`<tr><td>${i+1}</td><td><span class="article-title">${escapeHtml(x.title)}</span></td><td>${escapeHtml(x.author_name||'—')}</td><td>${statusBadge(x.status)}</td><td>${decisionBadge(x.final_decision)}</td><td>${escapeHtml(x.submitted_at||'—')}</td></tr>`).join(''):`<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i><p>هیچ مقاله‌ای ثبت نشده است</p></td></tr>`;
+
+        const summary=document.getElementById('reportStats');
+        if(summary){ summary.setAttribute('data-registrations',num(r.total)); summary.setAttribute('data-attended',num(r.attended)); summary.setAttribute('data-surveys',num(s.total_answers)); summary.setAttribute('data-rating',s.avg_rate??0); }
+        drawCharts(a);
+        window._reportData=d;
+    }
+
+    function escapeHtml(v){ return String(v??'').replace(/[&<>\"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[m])); }
+
+    async function loadReport(){
+        await ensureAuth();
+        const eventId=new URLSearchParams(location.search).get('event_id')||'';
+        const r=await fetch('backend/api/admin/reports.php'+(eventId?'?event_id='+encodeURIComponent(eventId):''),{credentials:'same-origin'});
+        const d=await r.json();
+        if(!r.ok || !d.ok) throw new Error(d.message||'گزارش دریافت نشد.');
+        renderReport(d);
+        const select=document.getElementById('reportEventFilter');
+        if(select){ select.innerHTML='<option value="">همه همایش‌ها</option>'+(d.events||[]).map(e=>`<option value="${e.id}">${escapeHtml(e.title)}</option>`).join(''); select.value=eventId; select.onchange=()=>{ location.search=select.value?'?event_id='+select.value:''; }; }
+    }
+
+    window.exportReport=function(){ window.print(); };
+    loadReport().catch(err=>{ console.error(err); alert('❌ '+err.message); });
+</script>
+
+</body>
+</html>

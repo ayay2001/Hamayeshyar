@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نویسندگان | سامانه مدیریت همایش همایش یار">
+    <title>نویسندگان | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        </head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             PAGE HEADER
+        =================================================== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <div>
+                        <span class="page-badge">
+                            <i class="fas fa-users"></i>
+                            نویسندگان
+                        </span>
+                        <h1>👥 نویسندگان و پژوهشگران</h1>
+                        <p>لیست کامل نویسندگان، پژوهشگران و اساتید مشارکت‌کننده در همایش‌ها.</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <button class="btn btn-primary btn-sm" onclick="exportAuthors()">
+                            <i class="fas fa-file-export"></i>
+                            خروجی
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             STATS
+        =================================================== -->
+        <section class="authors-stats">
+            <div class="container">
+                <div class="stats-grid" id="authorsStats">
+                    <div class="stat-box">
+                        <i class="fa-solid fa-users"></i>
+                        <h2 id="totalAuthors">0</h2>
+                        <span>کل نویسندگان</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <h2 id="totalPapers">0</h2>
+                        <span>کل مقالات</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-award"></i>
+                        <h2 id="topAuthors">0</h2>
+                        <span>نویسندگان برتر</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-building"></i>
+                        <h2 id="totalOrgs">0</h2>
+                        <span>سازمان‌ها</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             FILTER & SEARCH
+        =================================================== -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="جستجوی نویسنده..." onkeyup="filterAuthors()">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="orgFilter" onchange="filterAuthors()" class="filter-select">
+                            <option value="all">همه سازمان‌ها</option>
+                            <option value="دانشگاه صنعتی">دانشگاه صنعتی</option>
+                            <option value="دانشگاه علوم پزشکی">دانشگاه علوم پزشکی</option>
+                            <option value="مرکز تحقیقات علمی">مرکز تحقیقات علمی</option>
+                            <option value="دانشگاه آزاد">دانشگاه آزاد</option>
+                            <option value="صنعت">صنعت</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="sortFilter" onchange="sortAuthors()" class="filter-select">
+                            <option value="name">مرتب‌سازی بر اساس نام</option>
+                            <option value="papers">بیشترین مقاله</option>
+                            <option value="citations">بیشترین استناد</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             AUTHORS GRID
+        =================================================== -->
+        <section class="authors-section">
+            <div class="container">
+
+                <div class="authors-header">
+                    <span class="authors-count" id="authorsCount">۰ نویسنده</span>
+                </div>
+
+                <div class="authors-grid" id="authorsGrid">
+                    <!-- نویسندگان توسط JS پر می‌شود -->
+                </div>
+
+                <!-- ===== Pagination ===== -->
+                <div class="pagination" id="pagination">
+                    <button class="page-btn" onclick="changePage('prev')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <span class="page-info">صفحه <span id="currentPage">۱</span> از <span id="totalPages">۱</span></span>
+                    <button class="page-btn" onclick="changePage('next')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+    <script src="js/toast.js"></script>
+
+    <!-- ۳. توابع اصلی اپلیکیشن -->
+
+    <!-- ۴. نوار ناوبری -->
+    <script src="js/layout.js"></script>
+
+    <!-- ۵. تم -->
+<script>
+        // =========================================================
+        // DATA - از data.js خوانده می‌شود
+        // =========================================================
+        var authorsData = window.authorsData || [];
+
+        // =========================================================
+        // STATE
+        // =========================================================
+        var currentPage = 1;
+        var itemsPerPage = 6;
+        var filteredData = authorsData.slice();
+        var sortOrder = 'name';
+
+        // =========================================================
+        // RENDER AUTHORS
+        // =========================================================
+        function renderAuthors() {
+            var grid = document.getElementById('authorsGrid');
+            var start = (currentPage - 1) * itemsPerPage;
+            var end = start + itemsPerPage;
+            var pageData = filteredData.slice(start, end);
+
+            document.getElementById('authorsCount').textContent = filteredData.length + ' نویسنده';
+            document.getElementById('totalPages').textContent = Math.ceil(filteredData.length / itemsPerPage);
+            document.getElementById('currentPage').textContent = currentPage;
+
+            // آمار
+            var totalAuthors = authorsData.length;
+            var totalPapers = 0;
+            var topAuthors = 0;
+            var orgs = {};
+
+            for (var i = 0; i < authorsData.length; i++) {
+                var a = authorsData[i];
+                totalPapers += a.papers;
+                if (a.isTop) topAuthors++;
+                orgs[a.organization] = (orgs[a.organization] || 0) + 1;
+            }
+
+            document.getElementById('totalAuthors').textContent = totalAuthors;
+            document.getElementById('totalPapers').textContent = totalPapers;
+            document.getElementById('topAuthors').textContent = topAuthors;
+            document.getElementById('totalOrgs').textContent = Object.keys(orgs).length;
+
+            if (pageData.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users-slash"></i>
+                        <p>هیچ نویسنده‌ای با این فیلترها یافت نشد</p>
+                        <span class="empty-hint">لطفاً فیلترهای جستجو را تغییر دهید</span>
+                    </div>
+                `;
+                return;
+            }
+
+            var html = '';
+            for (var j = 0; j < pageData.length; j++) {
+                var author = pageData[j];
+
+                var avatarColor = getAvatarColor(author.id);
+                var initial = author.name.charAt(0);
+
+                var socialHtml = '';
+                if (author.social) {
+                    if (author.social.google) socialHtml += `<a href="${author.social.google}" target="_blank"><i class="fab fa-google"></i></a>`;
+                    if (author.social.linkedin) socialHtml += `<a href="${author.social.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>`;
+                    if (author.social.researchgate) socialHtml += `<a href="${author.social.researchgate}" target="_blank"><i class="fab fa-researchgate"></i></a>`;
+                }
+
+                html += `
+                    <div class="author-card ${author.isTop ? 'top-author' : ''}">
+                        <div class="author-avatar" style="background: ${avatarColor};">
+                            ${author.avatar ? `<img src="${author.avatar}" alt="${author.name}" onerror="this.style.display='none'">` : ''}
+                            <span class="author-initial">${initial}</span>
+                            ${author.isTop ? '<span class="top-badge"><i class="fas fa-crown"></i></span>' : ''}
+                        </div>
+
+                        <div class="author-info">
+                            <h3 class="author-name">${author.name}</h3>
+                            <span class="author-title">${author.title}</span>
+                            <span class="author-org"><i class="fas fa-building"></i> ${author.organization}</span>
+                            <span class="author-field"><i class="fas fa-tag"></i> ${author.field}</span>
+
+                            <div class="author-stats">
+                                <span class="stat-item"><i class="fas fa-file-alt"></i> ${author.papers} مقاله</span>
+                                <span class="stat-item"><i class="fas fa-quote-right"></i> ${author.citations} استناد</span>
+                            </div>
+
+                            <p class="author-bio">${author.bio}</p>
+
+                            <div class="author-actions">
+                                <div class="author-social">
+                                    ${socialHtml}
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="viewAuthor(${author.id})">
+                                    <i class="fas fa-eye"></i> مشاهده
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            grid.innerHTML = html;
+        }
+
+        // =========================================================
+        // HELPER - COLOR
+        // =========================================================
+        function getAvatarColor(id) {
+            var colors = [
+                '#7c3aed', '#3b82f6', '#22c55e', '#f59e0b', '#ef4444',
+                '#8b5cf6', '#06b6d4', '#84cc16', '#f472b6', '#f97316'
+            ];
+            return colors[(id - 1) % colors.length];
+        }
+
+        // =========================================================
+        // FILTER
+        // =========================================================
+        window.filterAuthors = function() {
+            var search = document.getElementById('searchInput').value.toLowerCase();
+            var org = document.getElementById('orgFilter').value;
+
+            filteredData = authorsData.filter(function(a) {
+                var matchSearch = a.name.indexOf(search) !== -1 ||
+                    a.field.indexOf(search) !== -1 ||
+                    a.organization.indexOf(search) !== -1 ||
+                    a.bio.indexOf(search) !== -1;
+                var matchOrg = org === 'all' || a.organization === org;
+                return matchSearch && matchOrg;
+            });
+
+            currentPage = 1;
+            renderAuthors();
+        };
+
+        // =========================================================
+        // SORT
+        // =========================================================
+        window.sortAuthors = function() {
+            sortOrder = document.getElementById('sortFilter').value;
+
+            if (sortOrder === 'name') {
+                filteredData.sort(function(a, b) {
+                    return a.name.localeCompare(b.name);
+                });
+            } else if (sortOrder === 'papers') {
+                filteredData.sort(function(a, b) {
+                    return b.papers - a.papers;
+                });
+            } else if (sortOrder === 'citations') {
+                filteredData.sort(function(a, b) {
+                    return b.citations - a.citations;
+                });
+            }
+
+            renderAuthors();
+        };
+
+        // =========================================================
+        // PAGINATION
+        // =========================================================
+        window.changePage = function(direction) {
+            var totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            if (direction === 'prev' && currentPage > 1) {
+                currentPage--;
+            } else if (direction === 'next' && currentPage < totalPages) {
+                currentPage++;
+            }
+            renderAuthors();
+        };
+
+        // =========================================================
+        // VIEW AUTHOR
+        // =========================================================
+        window.viewAuthor = function(id) {
+            var author = null;
+            for (var i = 0; i < authorsData.length; i++) {
+                if (authorsData[i].id === id) {
+                    author = authorsData[i];
+                    break;
+                }
+            }
+
+            if (!author) {
+                showToast('نویسنده یافت نشد.', 'error');
+                return;
+            }
+
+            var message = '📄 اطلاعات نویسنده\n\n';
+            message += '👤 نام: ' + author.name + '\n';
+            message += '📌 سمت: ' + author.title + '\n';
+            message += '🏛️ سازمان: ' + author.organization + '\n';
+            message += '🏷️ تخصص: ' + author.field + '\n';
+            message += '📧 ایمیل: ' + author.email + '\n\n';
+            message += '📊 آمار:\n';
+            message += '   📄 مقالات: ' + author.papers + '\n';
+            message += '   📝 استنادات: ' + author.citations + '\n\n';
+            message += '📝 بیوگرافی:\n' + author.bio;
+
+            alert(message);
+        };
+
+        // =========================================================
+        // EXPORT
+        // =========================================================
+        window.exportAuthors = function() {
+            showToast('📎 خروجی لیست نویسندگان با موفقیت دریافت شد.', 'success');
+        };
+
+        // =========================================================
+        // =========================================================
+
+        // =========================================================
+        // INIT
+        // =========================================================
+        renderAuthors();
+    </script>
+
+</body>
+</html>

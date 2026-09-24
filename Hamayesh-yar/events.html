@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="همایش‌ها | سامانه مدیریت همایش همایش یار">
+    <title>همایش‌ها | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        </head>
+
+<body>
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             PAGE HEADER
+        =================================================== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <div>
+                        <span class="page-badge">
+                            <i class="fas fa-calendar-days"></i>
+                            رویدادها
+                        </span>
+                        <h1>همایش‌های پیش‌رو و گذشته</h1>
+                        <p>همایش‌های علمی، کنفرانس‌ها و رویدادهای دانشکده را در این بخش مشاهده کنید.</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <a href="author-dashboard.html" class="btn btn-primary">
+                            <i class="fas fa-file-arrow-up"></i>
+                            ارسال مقاله
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             FILTER & SEARCH
+        =================================================== -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="جستجوی همایش..." onkeyup="filterEvents()">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="categoryFilter" onchange="filterEvents()" class="filter-select">
+                            <option value="all">همه دسته‌بندی‌ها</option>
+                            <option value="فناوری">فناوری</option>
+                            <option value="مهندسی">مهندسی</option>
+                            <option value="علمی">علمی</option>
+                            <option value="پزشکی">پزشکی</option>
+                            <option value="انسانی">علوم انسانی</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="statusFilter" onchange="filterEvents()" class="filter-select">
+                            <option value="all">همه وضعیت‌ها</option>
+                            <option value="upcoming">پیش‌رو</option>
+                            <option value="ongoing">در حال برگزاری</option>
+                            <option value="past">گذشته</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group filter-view">
+                        <button class="view-btn active" onclick="setView('grid')" title="نمایش شبکه‌ای">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="view-btn" onclick="setView('list')" title="نمایش لیستی">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             EVENTS GRID
+        =================================================== -->
+        <section class="events-section">
+            <div class="container">
+
+                <div class="events-header">
+                    <span class="events-count" id="eventsCount">0 همایش</span>
+                    <span class="events-sort">
+                        <i class="fas fa-arrow-up-wide-short"></i>
+                        <select id="sortSelect" onchange="sortEvents()" class="sort-select">
+                            <option value="date-asc">نزدیک‌ترین</option>
+                            <option value="date-desc">دورترین</option>
+                            <option value="name">نام</option>
+                        </select>
+                    </span>
+                </div>
+
+                <div class="events-grid" id="eventsGrid">
+                    <!-- همایش‌ها توسط JS پر می‌شود -->
+                </div>
+
+                <!-- ===== Pagination ===== -->
+                <div class="pagination" id="pagination">
+                    <button class="page-btn" onclick="changePage('prev')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <span class="page-info">صفحه <span id="currentPage">1</span> از <span id="totalPages">1</span></span>
+                    <button class="page-btn" onclick="changePage('next')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+ <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/events-api.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+
+    <!-- ۳. توابع اصلی اپلیکیشن -->
+
+    <!-- ۴. نوار ناوبری -->
+    <script src="js/layout.js"></script>
+
+    <!-- ۵. تم -->
+<!-- ۶. کدهای مخصوص صفحه events.html -->
+    <script>
+
+        var currentView = 'grid';
+        var currentPage = 1;
+        var itemsPerPage = 6;
+        var filteredData = [];
+        var eventsLoaded = false;
+        var sortOrder = 'date-asc';
+
+        function statusLabel(status) {
+            return {
+                upcoming: 'پیش‌رو',
+                ongoing: 'در حال برگزاری',
+                past: 'پایان یافته'
+            }[status] || 'همایش';
+        }
+
+        function statusIcon(status) {
+            return {
+                upcoming: 'fa-calendar-check',
+                ongoing: 'fa-circle-play',
+                past: 'fa-clock-rotate-left'
+            }[status] || 'fa-calendar';
+        }
+
+        function renderEvents() {
+            var grid = document.getElementById('eventsGrid');
+            var count = document.getElementById('eventsCount');
+            var pagination = document.getElementById('pagination');
+
+            var totalPages = Math.max(1, Math.ceil(filteredData.length / itemsPerPage));
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            var startIndex = (currentPage - 1) * itemsPerPage;
+            var pageItems = filteredData.slice(startIndex, startIndex + itemsPerPage);
+
+            count.textContent = filteredData.length + ' همایش';
+
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+
+            if (!pageItems.length) {
+                grid.innerHTML = `
+                    <div class="events-empty">
+                        <div class="events-empty-icon"><i class="fas fa-calendar-xmark"></i></div>
+                        <h3>همایشی پیدا نشد</h3>
+                        <p>فیلترها یا عبارت جستجو را تغییر دهید.</p>
+                    </div>`;
+                pagination.style.display = 'none';
+                return;
+            }
+
+            pagination.style.display = totalPages > 1 ? 'flex' : 'none';
+
+            grid.classList.toggle('events-list-view', currentView === 'list');
+
+            grid.innerHTML = pageItems.map(function(event) {
+                var image = event.image || 'images/hero-conference.png';
+                return `
+                    <article class="event-modern-card">
+                        <div class="event-modern-cover">
+                            <img src="${image}" alt="${event.title}"
+                                 onerror="this.src='images/hero-conference.png'">
+                            <div class="event-modern-overlay"></div>
+                            <span class="event-modern-status ${event.status}">
+                                <i class="fas ${statusIcon(event.status)}"></i>
+                                ${statusLabel(event.status)}
+                            </span>
+                            <span class="event-modern-category">${event.category || 'علمی'}</span>
+                        </div>
+
+                        <div class="event-modern-body">
+                            <div class="event-modern-date">
+                                <i class="far fa-calendar"></i>
+                                ${event.date || 'تاریخ نامشخص'}
+                            </div>
+
+                            <h2>${event.title}</h2>
+
+                            <p>${event.description || 'اطلاعات این همایش به‌زودی منتشر می‌شود.'}</p>
+
+                            <div class="event-modern-meta">
+                                <span>
+                                    <i class="fas fa-clock"></i>
+                                    ${event.time || '—'}
+                                </span>
+                                <span>
+                                    <i class="fas fa-location-dot"></i>
+                                    ${event.location || '—'}
+                                </span>
+                            </div>
+
+                            <div class="event-modern-footer">
+                                <span class="event-price">
+                                    ${event.price || 'رایگان'}
+                                </span>
+                                <a class="event-modern-link"
+                                   href="event-details.html?id=${event.id}">
+                                    مشاهده جزئیات
+                                    <i class="fas fa-arrow-left"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>`;
+            }).join('');
+        }
+
+        function filterEvents() {
+            var query = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+            var category = document.getElementById('categoryFilter').value;
+            var status = document.getElementById('statusFilter').value;
+
+            filteredData = (window.eventsData || []).filter(function(event) {
+                var text = [
+                    event.title,
+                    event.description,
+                    event.location,
+                    event.category
+                ].join(' ').toLowerCase();
+
+                return (!query || text.indexOf(query) !== -1)
+                    && (category === 'all' || event.category === category)
+                    && (status === 'all' || event.status === status);
+            });
+
+            currentPage = 1;
+            sortEvents(false);
+        }
+
+        function sortEvents(resetPage) {
+            if (resetPage !== false) currentPage = 1;
+            sortOrder = document.getElementById('sortSelect').value;
+
+            filteredData.sort(function(a, b) {
+                if (sortOrder === 'name') {
+                    return (a.title || '').localeCompare(b.title || '', 'fa');
+                }
+                if (sortOrder === 'date-desc') return b.id - a.id;
+                return a.id - b.id;
+            });
+
+            renderEvents();
+        }
+
+        function setView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            var active = document.querySelector('.view-btn[onclick*="' + view + '"]');
+            if (active) active.classList.add('active');
+            renderEvents();
+        }
+
+        function changePage(direction) {
+            var totalPages = Math.max(1, Math.ceil(filteredData.length / itemsPerPage));
+
+            if (direction === 'next' && currentPage < totalPages) currentPage++;
+            if (direction === 'prev' && currentPage > 1) currentPage--;
+
+            renderEvents();
+            document.querySelector('.events-section').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        async function initEventsPage() {
+            try {
+                filteredData = await loadEventsFromApi();
+                window.eventsData = filteredData.slice();
+                eventsLoaded = true;
+            } catch (error) {
+                // فقط برای جلوگیری از صفحه خالی در صورت قطع موقت API، fallback استاتیک حفظ می‌شود.
+                filteredData = (window.eventsData || []).slice();
+                showToast(error.message || 'دریافت همایش‌ها انجام نشد؛ داده‌های محلی نمایش داده شد.', 'warning');
+            }
+            sortEvents(false);
+        }
+
+        initEventsPage();
+    </script>
+</body>
+</html>

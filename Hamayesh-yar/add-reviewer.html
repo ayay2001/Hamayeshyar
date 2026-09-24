@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="افزودن داور | همایش یار">
+    <title>افزودن داور | همایش یار</title>    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        </head>
+
+<body>
+
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <main class="container" style="padding-top: 40px; padding-bottom: 80px;">
+        <div class="card" style="max-width: 700px; margin: 0 auto;">
+            <div class="card-header">
+                <div class="card-header-left">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>افزودن داور جدید</h3>
+                </div>
+                <div class="card-header-right">
+                    <a href="secretariat-dashboard.html" class="btn btn-outline btn-sm">
+                        <i class="fas fa-arrow-left"></i>
+                        بازگشت
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-body" style="padding: 30px;">
+                <form id="addReviewerForm" class="author-form">
+                    <div class="form-group">
+                        <label for="reviewerName">نام و نام خانوادگی داور <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="reviewerName" placeholder="نام کامل داور را وارد کنید" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewerEmail">ایمیل داور <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="reviewerEmail" placeholder="example@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewerPassword">رمز عبور اولیه <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="reviewerPassword" placeholder="حداقل ۸ کاراکتر" minlength="8" required autocomplete="new-password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewerOrganization">سازمان / دانشگاه</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-building"></i>
+                            <input type="text" id="reviewerOrganization" placeholder="نام دانشگاه یا سازمان">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewerExpertise">تخصص داور</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-tag"></i>
+                            <input type="text" id="reviewerExpertise" placeholder="مثلاً: هوش مصنوعی، داده‌کاوی، ...">
+                        </div>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-save"></i>
+                            ثبت داور
+                        </button>
+                        <button type="reset" class="btn btn-outline btn-large">
+                            <i class="fas fa-undo"></i>
+                            بازنشانی
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+<section class="container" style="padding-bottom: 80px;">
+    <div class="card" style="max-width: 1000px; margin: 0 auto;">
+        <div class="card-header">
+            <div class="card-header-left">
+                <i class="fas fa-users-cog"></i>
+                <h3>داوران ثبت‌شده</h3>
+            </div>
+            <span class="badge badge-primary" id="reviewerCount">۰ داور</span>
+        </div>
+        <div class="card-body" style="padding: 20px;">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead><tr><th>#</th><th>نام</th><th>ایمیل</th><th>تخصص</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+                    <tbody id="reviewersList"><tr><td colspan="6" style="text-align:center;">در حال بارگذاری...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="site-footer"></div>
+    <script src="js/toast.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/layout.js"></script>
+<script>
+        var currentUser = getUser();
+        if (!currentUser || (currentUser.role !== 'secretariat' && currentUser.role !== 'admin')) {
+            window.location.href = 'index.html';
+            throw new Error('دسترسی غیرمجاز');
+        }
+
+        function statusLabel(status) {
+            if (status === 'active') return '<span class="status-badge status-success">فعال</span>';
+            if (status === 'blocked') return '<span class="status-badge status-danger">مسدود</span>';
+            return '<span class="status-badge status-pending">غیرفعال</span>';
+        }
+
+        async function loadReviewers() {
+            var result = await apiRequest('admin/reviewers.php', { method: 'GET' });
+            var tbody = document.getElementById('reviewersList');
+            if (!result.ok) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">خطا در دریافت داورها</td></tr>';
+                return;
+            }
+            var reviewers = result.reviewers || [];
+            document.getElementById('reviewerCount').textContent = reviewers.length + ' داور';
+            if (!reviewers.length) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">هنوز داوری ثبت نشده است.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = reviewers.map(function(r, i) {
+                var nextStatus = r.status === 'active' ? 'inactive' : 'active';
+                var nextLabel = r.status === 'active' ? 'غیرفعال‌سازی' : 'فعال‌سازی';
+                return `<tr>
+                    <td>${i + 1}</td><td>${r.name || '—'}</td><td>${r.email || '—'}</td><td>${r.expertise || '—'}</td>
+                    <td>${statusLabel(r.status)}</td>
+                    <td><button class="btn btn-outline btn-sm" onclick="toggleReviewer(${r.id}, '${nextStatus}')"><i class="fas fa-power-off"></i> ${nextLabel}</button></td>
+                </tr>`;
+            }).join('');
+        }
+
+        window.toggleReviewer = async function(id, status) {
+            var result = await apiRequest('admin/reviewers.php', { method: 'PATCH', body: JSON.stringify({ id: id, status: status }) });
+            if (!result.ok) { showToast(result.message || 'به‌روزرسانی وضعیت داور انجام نشد.', 'error'); return; }
+            showToast(result.message, 'success');
+            loadReviewers();
+        };
+
+        document.getElementById('addReviewerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            var name = document.getElementById('reviewerName').value.trim();
+            var email = document.getElementById('reviewerEmail').value.trim();
+            var password = document.getElementById('reviewerPassword').value;
+            var expertise = document.getElementById('reviewerExpertise').value.trim();
+            var organization = document.getElementById('reviewerOrganization').value.trim();
+
+            if (!name || !email || !password) {
+                showToast('لطفاً فیلدهای الزامی را کامل کنید.', 'error');
+                return;
+            }
+            if (!email.includes('@')) {
+                showToast('لطفاً یک ایمیل معتبر وارد کنید.', 'error');
+                return;
+            }
+            if (password.length < 8) {
+                showToast('رمز عبور باید حداقل ۸ کاراکتر باشد.', 'error');
+                return;
+            }
+
+            var result = await apiRequest('admin/reviewers.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    expertise: expertise,
+                    organization: organization
+                })
+            });
+
+            if (!result.ok) {
+                showToast(result.message || 'ثبت داور انجام نشد.', 'error');
+                return;
+            }
+
+            showToast('داور با موفقیت ثبت شد.', 'success');
+            this.reset();
+            setTimeout(function() { window.location.href = 'secretariat-dashboard.html'; }, 700);
+        });
+
+        loadReviewers();
+    </script>
+</body>
+</html>

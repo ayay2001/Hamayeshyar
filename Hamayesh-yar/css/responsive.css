@@ -1,0 +1,743 @@
+/* =====================================================
+   RESPONSIVE.CSS
+   ریسپانسیو کل سایت
+   ===================================================== */
+
+
+/* =====================================================
+   LARGE TABLET
+   1200px ↓
+   ===================================================== */
+
+@media (max-width: 1200px) {
+
+    .navbar {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .container {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+    }
+
+    .author-hero,
+    .schedule-hero {
+        gap: 25px;
+    }
+
+    .hero-right {
+        grid-template-columns: repeat(2, 180px);
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+   992px ↓
+   ===================================================== */
+
+@media (max-width: 992px) {
+
+    /* ---------- NAVBAR ---------- */
+
+    .navbar {
+        gap: 15px;
+    }
+
+    .nav-links {
+        gap: 4px;
+    }
+
+    .nav-links a {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+
+    /* ---------- CONTAINER ---------- */
+
+    .container {
+        margin-top: 1.5rem;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .author-hero,
+    .schedule-hero {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-left,
+    .hero-content {
+        min-width: 100%;
+    }
+
+    .hero-left h1,
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+
+    /* ---------- HERO CARDS ---------- */
+
+    .hero-right {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-card {
+        width: 100%;
+    }
+
+
+    /* ---------- HERO STATS ---------- */
+
+    .hero-stats {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-card {
+        width: 100%;
+    }
+
+
+    /* ---------- GRIDS ---------- */
+
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* ---------- PRESENTATIONS ---------- */
+
+    .presentation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* ---------- SEARCH ---------- */
+
+    .search-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-card select {
+        width: 100%;
+        min-width: 0;
+    }
+
+
+    /* ---------- TABLE ---------- */
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL TABLET
+   768px ↓
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    /* ---------- BODY ---------- */
+
+    body {
+        font-size: 15px;
+    }
+
+
+    /* ---------- NAVBAR ---------- */
+
+    .main-header {
+        position: sticky;
+        top: 0;
+    }
+
+    .navbar {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        width: 100%;
+    }
+
+    .logo h1 {
+        font-size: 1.35rem;
+    }
+
+    .logo p {
+        font-size: 0.7rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .nav-links a {
+        padding: 7px 9px;
+        font-size: 0.8rem;
+    }
+
+
+    /* ---------- CONTAINER ---------- */
+
+    .container {
+        width: 100%;
+        margin: 1.2rem auto;
+        padding: 0 1rem;
+    }
+
+
+    /* ---------- CARDS ---------- */
+
+    .card {
+        padding: 1.3rem;
+        border-radius: 18px;
+        margin-bottom: 1.3rem;
+    }
+
+    .card h2 {
+        font-size: 1.3rem;
+        padding-right: 0.8rem;
+    }
+
+    .card h3 {
+        font-size: 1.1rem;
+    }
+
+
+    /* ---------- GRID ---------- */
+
+    .grid-2,
+    .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+
+    /* ---------- AUTHOR HERO ---------- */
+
+    .author-hero {
+        margin-bottom: 25px;
+        gap: 20px;
+    }
+
+    .hero-left {
+        min-width: 0;
+    }
+
+    .hero-left h1 {
+        font-size: 28px;
+    }
+
+    .hero-left p {
+        font-size: 0.9rem;
+        line-height: 1.9;
+    }
+
+
+    /* ---------- DEADLINE ---------- */
+
+    .deadline-box {
+        padding: 16px;
+        margin-top: 18px;
+    }
+
+    .deadline-top {
+        font-size: 0.9rem;
+    }
+
+
+    /* ---------- HERO CARDS ---------- */
+
+    .hero-right {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .hero-card {
+        padding: 18px 12px;
+        border-radius: 16px;
+    }
+
+    .hero-card i {
+        font-size: 25px;
+    }
+
+    .hero-card h2 {
+        font-size: 25px;
+    }
+
+
+    /* ---------- SCHEDULE HERO ---------- */
+
+    .schedule-hero {
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .hero-content {
+        min-width: 0;
+    }
+
+    .hero-content h1 {
+        font-size: 30px;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+
+    /* ---------- HERO STATS ---------- */
+
+    .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .stat-card {
+        min-width: 0;
+        width: 100%;
+        padding: 18px 12px;
+    }
+
+    .stat-card i {
+        font-size: 25px;
+    }
+
+    .stat-card h2 {
+        font-size: 27px;
+    }
+
+
+    /* ---------- SEARCH ---------- */
+
+    .search-card {
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+
+    .search-box input,
+    .search-card select {
+        padding: 12px 14px;
+        font-size: 0.9rem;
+    }
+
+
+    /* ---------- PRESENTATION ---------- */
+
+    .presentation-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .presentation-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .presentation-title {
+        font-size: 19px;
+    }
+
+    .presentation-info {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .presentation-footer {
+        flex-direction: column;
+    }
+
+    .presentation-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+
+    /* ---------- FORMS ---------- */
+
+    .form-group {
+        margin-bottom: 1.1rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.7rem 0.85rem;
+        font-size: 0.9rem;
+    }
+
+
+    /* ---------- BUTTONS ---------- */
+
+    .btn {
+        padding: 0.55rem 1.1rem;
+    }
+
+    .btn-sm {
+        padding: 0.4rem 0.8rem;
+    }
+
+
+    /* ---------- TABLE ---------- */
+
+    .table-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .table-search {
+        width: 100%;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    .main-footer {
+        padding: 1.5rem 1rem;
+        margin-top: 2rem;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   600px ↓
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    /* ---------- NAVBAR ---------- */
+
+    .navbar {
+        padding: 0.7rem 0.8rem;
+    }
+
+    .nav-links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 8px 5px;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .hero-left h1,
+    .hero-content h1 {
+        font-size: 25px;
+    }
+
+
+    /* ---------- HERO CARDS ---------- */
+
+    .hero-right {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .hero-card {
+        padding: 15px 8px;
+    }
+
+    .hero-card h2 {
+        font-size: 23px;
+    }
+
+    .hero-card span {
+        font-size: 0.8rem;
+    }
+
+
+    /* ---------- STATS ---------- */
+
+    .hero-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-card {
+        padding: 15px 8px;
+    }
+
+    .stat-card h2 {
+        font-size: 24px;
+    }
+
+
+    /* ---------- DEADLINE ---------- */
+
+    .deadline-top {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+
+    /* ---------- SEARCH ---------- */
+
+    .search-card {
+        margin-bottom: 20px;
+    }
+
+
+    /* ---------- TABLE ---------- */
+
+    .table-responsive {
+        border-radius: 12px;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+
+    /* ---------- PAGINATION ---------- */
+
+    .table-pagination {
+        flex-wrap: wrap;
+    }
+
+
+    /* ---------- ALERT ---------- */
+
+    .alert {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+    }
+
+
+    /* ---------- BUTTON ---------- */
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .table-actions .btn {
+        width: auto;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+   480px ↓
+   ===================================================== */
+
+@media (max-width: 480px) {
+
+    /* ---------- BODY ---------- */
+
+    body {
+        font-size: 14px;
+    }
+
+
+    /* ---------- NAVBAR ---------- */
+
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+
+    .nav-links {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+    }
+
+
+    /* ---------- CONTAINER ---------- */
+
+    .container {
+        padding: 0 0.75rem;
+    }
+
+
+    /* ---------- CARD ---------- */
+
+    .card {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .card h2 {
+        font-size: 1.15rem;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .hero-left h1,
+    .hero-content h1 {
+        font-size: 23px;
+    }
+
+    .hero-left p,
+    .hero-content p {
+        font-size: 0.85rem;
+    }
+
+
+    /* ---------- HERO CARDS ---------- */
+
+    .hero-right {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-card {
+        padding: 18px;
+    }
+
+
+    /* ---------- STATS ---------- */
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+
+    /* ---------- PRESENTATION ---------- */
+
+    .presentation-card {
+        padding: 16px;
+    }
+
+    .presentation-title {
+        font-size: 17px;
+    }
+
+    .presentation-info div {
+        font-size: 0.85rem;
+    }
+
+
+    /* ---------- FORMS ---------- */
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 0.85rem;
+    }
+
+
+    /* ---------- TABLE ---------- */
+
+    table {
+        min-width: 560px;
+    }
+
+
+    /* ---------- BUTTON ---------- */
+
+    .btn {
+        font-size: 0.8rem;
+    }
+
+}
+
+
+/* =====================================================
+   EXTRA SMALL DEVICES
+   360px ↓
+   ===================================================== */
+
+@media (max-width: 360px) {
+
+    .container {
+        padding: 0 0.6rem;
+    }
+
+    .card {
+        padding: 0.85rem;
+    }
+
+    .logo h1 {
+        font-size: 1.1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.7rem;
+        padding: 7px 3px;
+    }
+
+    .hero-left h1,
+    .hero-content h1 {
+        font-size: 21px;
+    }
+
+    .hero-card h2 {
+        font-size: 21px;
+    }
+
+    .stat-card h2 {
+        font-size: 21px;
+    }
+
+}
+/* ===== Redesigned component responsive overrides ===== */
+@media (max-width: 900px) {
+  .site-navbar { padding: 10px 14px; }
+  .site-nav { display: none; }
+  .site-nav.open {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid var(--ry-line, #ebe7f3);
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(30,18,60,.12);
+  }
+  .site-actions .nav-register { display:none; }
+  .nav-menu-btn { display:grid; }
+}
+@media (max-width: 640px) {
+  .container { width: min(100% - 24px, 1240px); }
+  .hero-content, .page-header-content { padding: 36px 22px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 430px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}

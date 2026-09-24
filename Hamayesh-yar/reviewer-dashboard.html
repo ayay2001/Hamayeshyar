@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="پنل داور | سامانه مدیریت همایش همایش یار">
+    <title>پنل داور | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        </head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             PAGE HEADER
+        =================================================== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <div>
+                        <span class="page-badge">
+                            <i class="fas fa-user-check"></i>
+                            پنل داور
+                        </span>
+                        <h1>📋 مقالات ارجاع شده به من</h1>
+                        <p>مقالاتی که برای داوری به شما ارجاع داده شده‌اند را بررسی کنید.</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <a href="index.html" class="btn btn-outline btn-sm">
+                            <i class="fas fa-arrow-right"></i>
+                            بازگشت به خانه
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             STATS ROW
+        =================================================== -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid" id="reviewerStats">
+                    <div class="stat-box">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <h2 id="totalCount">0</h2>
+                        <span>کل مقالات</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                        <h2 id="pendingCount">0</h2>
+                        <span>در انتظار داوری</span>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <h2 id="doneCount">0</h2>
+                        <span>انجام شده</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             ARTICLES TABLE
+        =================================================== -->
+        <section class="table-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>مقالات</span>
+                    <h2>لیست مقالات ارجاع شده</h2>
+                    <p>برای هر مقاله، وضعیت داوری و امتیاز شما نمایش داده می‌شود.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <i class="fas fa-list-ul"></i>
+                            <h3>مقالات ارجاعی</h3>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="badge badge-primary" id="articleCount">۰ مقاله</span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-file-alt"></i> عنوان مقاله</th>
+                                    <th><i class="fas fa-user"></i> نویسنده</th>
+                                    <th><i class="fas fa-clock"></i> وضعیت داوری</th>
+                                    <th><i class="fas fa-star"></i> امتیاز شما</th>
+                                    <th><i class="fas fa-cog"></i> عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reviewerArticles">
+                                <!-- مقالات توسط JS پر می‌شود -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+    <script src="js/toast.js"></script>
+
+    <!-- ۳. نوار ناوبری -->
+    <script src="js/app.js"></script>
+    <script src="js/layout.js"></script>
+
+    <!-- ۴. تم -->
+<script>
+
+        // =========================================================
+        // دریافت کاربر و بررسی لاگین
+        // =========================================================
+        var currentUser = getUser();
+
+        if (!currentUser) {
+            window.location.href = 'login.html';
+            throw new Error('کاربر لاگین نیست');
+        }
+
+        if (currentUser.role !== 'reviewer') {
+            window.location.href = 'index.html';
+            throw new Error('دسترسی غیرمجاز');
+        }
+
+        // =========================================================
+        // داده‌ها و توابع داور
+        // =========================================================
+
+        async function loadAssignedArticles() {
+            var result = await apiRequest('reviewer/articles.php', { method: 'GET' });
+            if (!result.ok) { showToast(result.message || 'دریافت مقالات انجام نشد.', 'error'); return; }
+            var assigned = result.articles || [];
+            window.reviewerArticles = assigned;
+            var tbody = document.getElementById('reviewerArticles');
+            document.getElementById('totalCount').textContent = assigned.length;
+            var pending = assigned.filter(function(a) { return !a.myReview; });
+            document.getElementById('pendingCount').textContent = pending.length;
+            document.getElementById('doneCount').textContent = assigned.length - pending.length;
+            document.getElementById('articleCount').textContent = assigned.length + ' مقاله';
+            if (!assigned.length) { tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i><p>در حال حاضر مقاله‌ای به شما ارجاع نشده است.</p><span class="empty-hint">به محض ارجاع مقاله جدید، در اینجا نمایش داده می‌شود.</span></td></tr>`; return; }
+            var html='';
+            for (var i=0;i<assigned.length;i++) {
+                var art=assigned[i], myReview=art.myReview, hasReviewed=!!myReview;
+                var statusHtml=hasReviewed ? `<span class="status-badge status-success"><i class="fas fa-check-circle"></i> انجام شده</span>` : `<span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> در انتظار داوری</span>`;
+                html += `<tr class="${hasReviewed ? 'row-reviewed':'row-pending'}"><td><div class="article-title-cell"><span class="article-title">${art.title || '---'}</span></div></td><td><div class="author-cell"><i class="fas fa-user-circle"></i> ${art.authorName || '---'}</div></td><td>${statusHtml}</td><td>${myReview ? `<span class="score-badge">${myReview.score}</span>` : '<span class="no-score">—</span>'}</td><td>${!hasReviewed ? `<button class="btn btn-primary btn-sm" onclick="openReviewModal(${art.id})"><i class="fas fa-pen-fancy"></i> ثبت داوری</button>` : `<button class="btn btn-outline btn-sm" onclick="viewReview(${art.id})"><i class="fas fa-eye"></i> مشاهده</button>`}</td></tr>`;
+            }
+            tbody.innerHTML=html;
+        }
+
+        window.openReviewModal = async function(articleId) {
+            var article=(window.reviewerArticles || []).find(function(a){return Number(a.id)===Number(articleId);});
+            if(!article){showToast('مقاله یافت نشد.','error');return;}
+            var scoreInput=prompt('📊 امتیاز خود را وارد کنید (0-100):'); if(scoreInput===null)return;
+            var commentInput=prompt('💬 نظر خود را وارد کنید:'); if(commentInput===null)return;
+            var suggestionInput=prompt('📌 پیشنهاد خود را وارد کنید (accept / reject / revision):'); if(suggestionInput===null)return;
+            var numScore=parseInt(scoreInput,10), suggestion=suggestionInput.toLowerCase();
+            if(isNaN(numScore)||numScore<0||numScore>100){showToast('لطفاً یک عدد بین 0 تا 100 وارد کنید.','error');return;}
+            if(!['accept','reject','revision'].includes(suggestion)){showToast('پیشنهاد نامعتبر است.','error');return;}
+            var result=await apiRequest('reviewer/review.php',{method:'POST',body:JSON.stringify({article_id:articleId,score:numScore,comment:commentInput,suggestion:suggestion})});
+            if(!result.ok){showToast(result.message || 'ثبت داوری انجام نشد.','error');return;}
+            showToast('✅ '+result.message,'success'); await loadAssignedArticles();
+        };
+
+        // =========================================================
+        // مشاهده داوری
+        // =========================================================
+        window.viewReview = function(articleId) {
+            var article=(window.reviewerArticles || []).find(function(a){return Number(a.id)===Number(articleId);});
+            if(!article || !article.myReview)return;
+            var r=article.myReview;
+            alert('📄 جزئیات داوری شما\n\n📊 امتیاز: '+r.score+'\n💬 نظر: '+(r.comment||'')+'\n📌 پیشنهاد: '+r.suggestion+'\n📅 تاریخ: '+(r.date||'نامشخص'));
+        };
+
+        // بارگذاری اولیه مقالات
+        loadAssignedArticles();
+    </script>
+
+</body>
+</html>

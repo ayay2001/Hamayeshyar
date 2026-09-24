@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>اعلان‌ها | همایش یار</title>
+<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/components.css"><link rel="stylesheet" href="css/layout.css"><link rel="stylesheet" href="css/pages.css"><link rel="stylesheet" href="css/responsive.css"><link rel="stylesheet" href="css/ui-final.css">
+</head>
+<body><div id="navbar-placeholder"></div>
+<main class="page-section"><div class="container"><div class="section-heading"><span class="eyebrow">مرکز اعلان‌ها</span><h1>اعلان‌های من</h1><p>آخرین رویدادهای مرتبط با حساب، مقاله‌ها، داوری‌ها و ثبت‌نام‌های شما.</p></div>
+<div class="notifications-toolbar"><button class="btn btn-outline" id="markAll">خواندن همه</button></div>
+<div id="notificationsList" class="notifications-list"><div class="empty-state">در حال دریافت اعلان‌ها...</div></div></div></main><div id="site-footer"></div>
+<script src="js/app.js"></script><script src="js/layout.js"></script><script>
+document.addEventListener('DOMContentLoaded',async function(){
+ const list=document.getElementById('notificationsList'); const mark=document.getElementById('markAll');
+ if(!window.getUser()){ location.href='login.html'; return; }
+ async function load(){ const r=await apiRequest('notifications.php?limit=50'); if(!r.ok){list.innerHTML='<div class="empty-state">دریافت اعلان‌ها ممکن نشد.</div>';return;} if(!r.notifications.length){list.innerHTML='<div class="empty-state">اعلان جدیدی وجود ندارد.</div>';return;} list.innerHTML=r.notifications.map(n=>`<article class="notification-card ${n.isRead?'is-read':''}"><div><h3>${escapeHtml(n.title)}</h3><p>${escapeHtml(n.message)}</p><time>${escapeHtml(n.createdAt)}</time></div><button class="btn btn-sm btn-outline" data-id="${n.id}" ${n.isRead?'disabled':''}>${n.isRead?'خوانده شده':'خواندم'}</button></article>`).join(''); list.querySelectorAll('[data-id]').forEach(b=>b.addEventListener('click',async()=>{await apiRequest('notifications.php',{method:'PATCH',body:JSON.stringify({id:b.dataset.id})});load();})); }
+ function escapeHtml(v){return String(v??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[c]));}
+ mark.addEventListener('click',async()=>{await apiRequest('notifications.php',{method:'PATCH',body:JSON.stringify({action:'all'})});load();}); load();
+});
+</script></body></html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="جزئیات همایش | سامانه مدیریت همایش همایش یار">
+    <title>جزئیات همایش | همایش یار</title>
+
+    <!-- =========================
+         CSS
+    ========================== --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/ui-final.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        </head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+    <header class="main-header"><div id="navbar-placeholder"></div></header>
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+    <main>
+
+        <!-- ==================================================
+             EVENT HERO
+        =================================================== -->
+        <section class="event-detail-hero">
+            <div class="container">
+                <div class="event-detail-hero-content">
+                    <div class="event-detail-hero-left">
+                        <span class="event-detail-badge" id="eventStatusBadge">
+                            <i class="fas fa-clock"></i>
+                            پیش‌رو
+                        </span>
+                        <h1 id="eventTitle">همایش فناوری اطلاعات و ارتباطات</h1>
+                        <div class="event-detail-meta">
+                            <span class="meta-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span id="eventDate">۲۰ شهریور ۱۴۰۴</span>
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span id="eventTime">۰۹:۰۰ - ۱۷:۰۰</span>
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-map-pin"></i>
+                                <span id="eventLocation">سالن همایش دانشکده</span>
+                            </span>
+                        </div>
+                        <p class="event-detail-description" id="eventDescription">
+                            همایش یک روزه با حضور متخصصان برتر حوزه فناوری اطلاعات و ارتباطات
+                        </p>
+                        <div class="event-detail-actions">
+                            <button class="btn btn-primary" onclick="registerEvent()">
+                                <i class="fas fa-user-plus"></i>
+                                ثبت‌نام در همایش
+                            </button>
+                            <button class="btn btn-outline" onclick="window.print()">
+                                <i class="fas fa-print"></i>
+                                چاپ اطلاعات
+                            </button>
+                        </div>
+                    </div>
+                    <div class="event-detail-hero-right">
+                        <div class="event-detail-image">
+                            <img src="images/event-1.jpg" alt="همایش" id="eventImage" onerror="this.src='images/hero-conference.png'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             EVENT INFO TABS
+        =================================================== -->
+        <section class="event-detail-tabs-section">
+            <div class="container">
+                <div class="event-detail-tabs">
+                    <button class="tab-btn active" data-tab="info" onclick="switchTab('info')">
+                        <i class="fas fa-info-circle"></i>
+                        اطلاعات
+                    </button>
+                    <button class="tab-btn" data-tab="schedule" onclick="switchTab('schedule')">
+                        <i class="fas fa-clock"></i>
+                        برنامه
+                    </button>
+                    <button class="tab-btn" data-tab="speakers" onclick="switchTab('speakers')">
+                        <i class="fas fa-users"></i>
+                        سخنرانان
+                    </button>
+                    <button class="tab-btn" data-tab="papers" onclick="switchTab('papers')">
+                        <i class="fas fa-file-alt"></i>
+                        مقالات
+                    </button>
+                    <button class="tab-btn" data-tab="register" onclick="switchTab('register')">
+                        <i class="fas fa-user-plus"></i>
+                        ثبت‌نام
+                    </button>
+                </div>
+
+                <!-- ===== TAB CONTENT ===== -->
+                <div class="tab-content">
+
+                    <!-- ===== اطلاعات ===== -->
+                    <div class="tab-panel active" id="tab-info">
+                        <div class="event-detail-info-grid">
+                            <div class="info-card-detail">
+                                <h3><i class="fas fa-calendar-alt"></i> تاریخ و زمان</h3>
+                                <p><strong>تاریخ:</strong> <span id="infoDate">۲۰ شهریور ۱۴۰۴</span></p>
+                                <p><strong>ساعت:</strong> <span id="infoTime">۰۹:۰۰ - ۱۷:۰۰</span></p>
+                                <p><strong>مدت:</strong> <span id="infoDuration">۸ ساعت</span></p>
+                            </div>
+                            <div class="info-card-detail">
+                                <h3><i class="fas fa-map-pin"></i> مکان</h3>
+                                <p><strong>سالن:</strong> <span id="infoHall">سالن همایش دانشکده</span></p>
+                                <p><strong>آدرس:</strong> <span id="infoAddress">دانشکده فنی و مهندسی، سالن همایش</span></p>
+                                <p><strong>ظرفیت:</strong> <span id="infoCapacity">۳۰۰ نفر</span></p>
+                            </div>
+                            <div class="info-card-detail">
+                                <h3><i class="fas fa-tag"></i> هزینه</h3>
+                                <p><strong>هزینه ثبت‌نام:</strong> <span id="infoPrice">رایگان</span></p>
+                                <p><strong>مهلت ثبت‌نام:</strong> <span id="infoDeadline">۱۰ شهریور ۱۴۰۴</span></p>
+                                <p><strong>وضعیت:</strong> <span id="infoStatus">فعال</span></p>
+                            </div>
+                            <div class="info-card-detail">
+                                <h3><i class="fas fa-users"></i> آمار</h3>
+                                <p><strong>تعداد شرکت‌کنندگان:</strong> <span id="infoAttendees">۲۵۰</span></p>
+                                <p><strong>تعداد مقالات:</strong> <span id="infoPapers">۸۵</span></p>
+                                <p><strong>تعداد ارائه‌ها:</strong> <span id="infoPresentations">۱۲</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== برنامه ===== -->
+                    <div class="tab-panel" id="tab-schedule">
+                        <div class="event-schedule-list" id="eventScheduleList">
+                            <!-- برنامه توسط JS پر می‌شود -->
+                        </div>
+                    </div>
+
+                    <!-- ===== سخنرانان ===== -->
+                    <div class="tab-panel" id="tab-speakers">
+                        <div class="speakers-grid" id="speakersGrid">
+                            <!-- سخنرانان توسط JS پر می‌شود -->
+                        </div>
+                    </div>
+
+                    <!-- ===== مقالات ===== -->
+                    <div class="tab-panel" id="tab-papers">
+                        <div class="papers-list" id="papersList">
+                            <!-- مقالات توسط JS پر می‌شود -->
+                        </div>
+                    </div>
+
+                    <!-- ===== ثبت‌نام ===== -->
+                    <div class="tab-panel" id="tab-register">
+                        <div class="register-form-container">
+                            <h3><i class="fas fa-user-plus"></i> ثبت‌نام در همایش</h3>
+                            <p>برای ثبت‌نام در این همایش، فرم زیر را تکمیل کنید.</p>
+                            <form id="registerEventForm" class="register-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="regName">نام کامل <span class="required">*</span></label>
+                                        <input type="text" id="regName" placeholder="نام و نام خانوادگی" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="regEmail">ایمیل <span class="required">*</span></label>
+                                        <input type="email" id="regEmail" placeholder="example@email.com" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="regPhone">شماره تماس <span class="required">*</span></label>
+                                        <input type="tel" id="regPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="regOrganization">سازمان / دانشگاه</label>
+                                        <input type="text" id="regOrganization" placeholder="نام سازمان یا دانشگاه">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="regMessage">توضیحات</label>
+                                    <textarea id="regMessage" rows="3" placeholder="در صورت نیاز توضیحات خود را وارد کنید..."></textarea>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" required>
+                                        <span class="checkmark"></span>
+                                        <span class="checkbox-text">
+                                            <i class="fas fa-check-circle"></i>
+                                            با <a href="#">شرایط و ضوابط</a> همایش موافقم
+                                        </span>
+                                    </label>
+                                </div>
+                                <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;">
+                                    <button type="submit" id="submitRegistrationBtn" class="btn btn-primary btn-large">
+                                        <i class="fas fa-paper-plane"></i>
+                                        ثبت‌نام
+                                    </button>
+                                    <button type="button" id="cancelRegistrationBtn" class="btn btn-danger btn-large" style="display:none;">
+                                        <i class="fas fa-ban"></i>
+                                        لغو ثبت‌نام
+                                    </button>
+                                    <span id="registrationStatus" class="badge badge-primary" style="display:none;"></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             RELATED EVENTS
+        =================================================== -->
+        <section class="related-events">
+            <div class="container">
+                <div class="section-heading">
+                    <span>همایش‌های مرتبط</span>
+                    <h2>همایش‌های مشابه</h2>
+                    <p>همایش‌های دیگری که ممکن است برای شما جالب باشد.</p>
+                </div>
+                <div class="related-events-grid" id="relatedEventsGrid">
+                    <!-- همایش‌های مرتبط توسط JS پر می‌شود -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+<div id="site-footer"></div>
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <!-- ۱. داده‌های مرکزی -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/events-api.js"></script>
+
+    <!-- ۲. سیستم اعلان‌ها -->
+    <script src="js/toast.js"></script>
+
+    <!-- ۳. توابع اصلی اپلیکیشن -->
+
+    <!-- ۴. نوار ناوبری -->
+    <script src="js/layout.js"></script>
+
+    <!-- ۵. تم -->
+<script>
+        // =========================================================
+        // GET EVENT ID FROM URL + LOAD FROM API
+        // =========================================================
+        function getEventId() {
+            var params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id'), 10) || 1;
+        }
+
+        var eventId = getEventId();
+        var event = null;
+        var eventsData = [];
+
+        function faDate(value) {
+            if (!value) return '—';
+            var d = new Date(value + 'T00:00:00');
+            return Number.isNaN(d.getTime()) ? value : new Intl.DateTimeFormat('fa-IR-u-ca-persian', {day:'numeric',month:'long',year:'numeric'}).format(d);
+        }
+
+        function renderEventDetails() {
+            if (!event) return;
+            var dateText = event.start_date ? faDate(event.start_date) : (event.date || '—');
+            if (event.end_date && event.end_date !== event.start_date) dateText += ' تا ' + faDate(event.end_date);
+            var statusBadge = document.getElementById('eventStatusBadge');
+            document.getElementById('eventTitle').textContent = event.title || '—';
+            document.getElementById('eventDate').textContent = dateText;
+            document.getElementById('eventTime').textContent = event.time || '—';
+            document.getElementById('eventLocation').textContent = event.location || '—';
+            document.getElementById('eventDescription').textContent = event.description || 'اطلاعات این همایش به‌زودی منتشر می‌شود.';
+            document.getElementById('eventImage').src = event.image || 'images/event-placeholder.jpg';
+
+            if (event.status === 'upcoming') {
+                statusBadge.innerHTML = '<i class="fas fa-clock"></i> پیش‌رو'; statusBadge.className = 'event-detail-badge status-upcoming';
+            } else if (event.status === 'ongoing') {
+                statusBadge.innerHTML = '<i class="fas fa-circle-play"></i> در حال برگزاری'; statusBadge.className = 'event-detail-badge status-ongoing';
+            } else if (event.status === 'past') {
+                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> پایان یافته'; statusBadge.className = 'event-detail-badge status-past';
+            } else {
+                statusBadge.innerHTML = '<i class="fas fa-calendar"></i> ' + (event.statusText || 'همایش');
+                statusBadge.className = 'event-detail-badge';
+            }
+
+            document.getElementById('infoDate').textContent = dateText;
+            document.getElementById('infoTime').textContent = event.time || '—';
+            document.getElementById('infoDuration').textContent = event.duration || '—';
+            document.getElementById('infoHall').textContent = event.location || '—';
+            document.getElementById('infoAddress').textContent = event.address || event.location || '—';
+            document.getElementById('infoCapacity').textContent = event.capacity != null ? new Intl.NumberFormat('fa-IR').format(event.capacity) + ' نفر' : '—';
+            document.getElementById('infoPrice').textContent = event.price != null ? (Number(event.price) > 0 ? new Intl.NumberFormat('fa-IR').format(Number(event.price)) + ' تومان' : 'رایگان') : '—';
+            document.getElementById('infoDeadline').textContent = event.submission_deadline ? faDate(event.submission_deadline) : '—';
+            document.getElementById('infoStatus').textContent = event.statusText || 'فعال';
+            document.getElementById('infoAttendees').textContent = new Intl.NumberFormat('fa-IR').format(Number(event.participants || 0));
+            document.getElementById('infoPapers').textContent = new Intl.NumberFormat('fa-IR').format(Number(event.papers || 0));
+            document.getElementById('infoPresentations').textContent = new Intl.NumberFormat('fa-IR').format(Number(event.presentations || 0));
+
+            renderSchedule();
+            renderSpeakers();
+            renderPapers();
+            renderRelatedEvents();
+        }
+
+        function renderSchedule() {
+            var container = document.getElementById('eventScheduleList');
+            var schedule = Array.isArray(event.schedule) ? event.schedule : [];
+            if (!schedule.length) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-days"></i><p>برنامه این همایش هنوز ثبت نشده است.</p></div>';
+                return;
+            }
+            container.innerHTML = schedule.map(function(item) {
+                return '<div class="schedule-item"><div class="schedule-time">' + (item.time || '—') + '</div><div class="schedule-content"><h4>' + (item.title || 'بدون عنوان') + '</h4><p>' + (item.speaker || '') + (item.hall ? ' · ' + item.hall : '') + '</p></div></div>';
+            }).join('');
+        }
+
+        function renderSpeakers() {
+            var container = document.getElementById('speakersList');
+            if (!container) return;
+            var speakers = Array.isArray(event.speakers) ? event.speakers : [];
+            if (!speakers.length) { container.innerHTML = '<div class="empty-state"><p>سخنرانان هنوز ثبت نشده‌اند.</p></div>'; return; }
+            container.innerHTML = speakers.map(function(speaker) {
+                return '<div class="speaker-card"><img src="' + (speaker.image || 'images/avatar-placeholder.jpg') + '" alt="' + (speaker.name || 'سخنران') + '"><div><h4>' + (speaker.name || '—') + '</h4><p>' + (speaker.title || '') + '</p></div></div>';
+            }).join('');
+        }
+
+        function renderPapers() {
+            var container = document.getElementById('eventPapersList');
+            if (!container) return;
+            var papers = Array.isArray(event.papersList) ? event.papersList : [];
+            if (!papers.length) { container.innerHTML = '<div class="empty-state"><p>مقاله‌ای برای نمایش ثبت نشده است.</p></div>'; return; }
+            container.innerHTML = papers.map(function(paper) { return '<div class="paper-row"><div><h4>' + (paper.title || 'بدون عنوان') + '</h4><p>' + (paper.author || '') + '</p></div></div>'; }).join('');
+        }
+
+        function renderRelatedEvents() {
+            var container = document.getElementById('relatedEventsGrid');
+            if (!container) return;
+            var related = eventsData.filter(function(e) { return Number(e.id) !== Number(eventId); }).slice(0, 3);
+            if (!related.length) { container.innerHTML = ''; return; }
+            container.innerHTML = related.map(function(e) {
+                return '<div class="related-event-card" onclick="location.href=\'event-details.html?id=' + e.id + '\'"><img src="' + (e.image || 'images/event-placeholder.jpg') + '" alt="' + e.title + '" onerror="this.src=\'images/hero-conference.png\'"><div class="related-event-info"><h4>' + e.title + '</h4><p><i class="fas fa-calendar-alt"></i> ' + (e.date || '—') + '</p><p><i class="fas fa-map-pin"></i> ' + (e.location || '—') + '</p></div></div>';
+            }).join('');
+        }
+
+        async function initEventDetails() {
+            try {
+                event = await loadEventsFromApi({ id: eventId });
+                eventsData = await loadEventsFromApi();
+                renderEventDetails();
+            } catch (error) {
+                // fallback برای توسعه آفلاین
+                eventsData = window.eventsData || [];
+                event = eventsData.find(function(e){ return Number(e.id) === Number(eventId); }) || eventsData[0];
+                renderEventDetails();
+                showToast(error.message || 'دریافت اطلاعات همایش انجام نشد.', 'warning');
+            }
+        }
+
+        initEventDetails();
+
+        // =========================================================
+        // TABS
+        // =========================================================
+        window.switchTab = function(tabId) {
+            var tabs = document.querySelectorAll('.tab-btn');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            document.querySelector('.tab-btn[data-tab="' + tabId + '"]').classList.add('active');
+
+            var panels = document.querySelectorAll('.tab-panel');
+            for (var j = 0; j < panels.length; j++) {
+                panels[j].classList.remove('active');
+            }
+            document.getElementById('tab-' + tabId).classList.add('active');
+        };
+
+        // =========================================================
+        // REGISTER — PHP / MySQL
+        // =========================================================
+        var registrationState = null;
+
+        function setRegistrationUi(state) {
+            registrationState = state || null;
+            var form = document.getElementById('registerEventForm');
+            var submit = document.getElementById('submitRegistrationBtn');
+            var cancel = document.getElementById('cancelRegistrationBtn');
+            var badge = document.getElementById('registrationStatus');
+            var logged = !!(window.getUser && window.getUser());
+            var locked = !!state && (state.status === 'registered' || state.status === 'attended');
+            if (state) {
+                document.getElementById('regName').value = state.name || '';
+                document.getElementById('regEmail').value = state.email || '';
+                document.getElementById('regPhone').value = state.phone || '';
+                document.getElementById('regOrganization').value = state.organization || '';
+                document.getElementById('regMessage').value = state.message || '';
+            }
+            [ 'regName','regEmail','regPhone','regOrganization','regMessage' ].forEach(function(id){ document.getElementById(id).disabled = locked; });
+            submit.style.display = locked ? 'none' : '';
+            cancel.style.display = (state && state.status === 'registered' && logged) ? '' : 'none';
+            badge.style.display = state ? '' : 'none';
+            badge.textContent = state ? (state.status === 'attended' ? 'حضور ثبت شده' : state.status === 'cancelled' ? 'لغو شده' : 'ثبت‌نام شما فعال است') : '';
+            if (event && event.capacity != null && Number(event.participants || 0) >= Number(event.capacity) && !state) {
+                submit.disabled = true;
+                submit.title = 'ظرفیت تکمیل شده است';
+            } else { submit.disabled = locked; submit.title=''; }
+        }
+
+        async function loadRegistrationState() {
+            if (!eventId) return;
+            var r = await window.apiRequest('registrations.php?event_id=' + encodeURIComponent(eventId), {method:'GET'});
+            if (r.ok) setRegistrationUi(r.registration || null);
+        }
+
+        window.registerEvent = function() {
+            switchTab('register');
+            loadRegistrationState();
+        };
+
+        document.getElementById('registerEventForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var payload = {
+                event_id: Number(eventId),
+                name: document.getElementById('regName').value.trim(),
+                email: document.getElementById('regEmail').value.trim(),
+                phone: document.getElementById('regPhone').value.trim(),
+                organization: document.getElementById('regOrganization').value.trim(),
+                message: document.getElementById('regMessage').value.trim()
+            };
+            var r = await window.apiRequest('registrations.php', {method:'POST', body:JSON.stringify(payload)});
+            if (!r.ok) { showToast(r.message || 'ثبت‌نام انجام نشد.', 'error'); return; }
+            showToast(r.message || 'ثبت‌نام با موفقیت انجام شد.', 'success');
+            var rr = await window.apiRequest('registrations.php?event_id=' + encodeURIComponent(eventId), {method:'GET'});
+            if (rr.ok) setRegistrationUi(rr.registration || null);
+            try { event = await loadEventsFromApi({id:eventId}); renderEventDetails(); } catch (_) {}
+        });
+
+        document.getElementById('cancelRegistrationBtn').addEventListener('click', async function() {
+            if (!registrationState || !registrationState.id) return;
+            if (!confirm('آیا از لغو ثبت‌نام خود اطمینان دارید؟')) return;
+            var r = await window.apiRequest('registrations.php', {method:'PATCH', body:JSON.stringify({id:Number(registrationState.id),status:'cancelled'})});
+            if (!r.ok) { showToast(r.message || 'لغو ثبت‌نام انجام نشد.', 'error'); return; }
+            showToast(r.message || 'ثبت‌نام لغو شد.', 'success');
+            var rr = await window.apiRequest('registrations.php?event_id=' + encodeURIComponent(eventId), {method:'GET'});
+            setRegistrationUi(rr.ok ? (rr.registration || null) : null);
+            try { event = await loadEventsFromApi({id:eventId}); renderEventDetails(); } catch (_) {}
+        });
+
+        // =========================================================
+        // =========================================================
+
+        // =========================================================
+        // INIT
+        // =========================================================
+        renderEventDetails();
+        (async function(){
+            try {
+                var u = window.getUser && window.getUser();
+                if (u) {
+                    document.getElementById('regName').value = u.name || '';
+                    document.getElementById('regEmail').value = u.email || '';
+                    document.getElementById('regPhone').value = u.phone || '';
+                    document.getElementById('regOrganization').value = u.organization || '';
+                }
+                await loadRegistrationState();
+            } catch (_) {}
+        })();
+    </script>
+
+</body>
+</html>
